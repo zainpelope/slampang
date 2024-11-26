@@ -1,14 +1,31 @@
+<?php
+include 'koneksi.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subjeck = $_POST['subjeck'];
+    $message = $_POST['message'];
+
+    $sql = "INSERT INTO kontak (name, email, subjeck, message) VALUES ('$name', '$email', '$subjeck', '$message')";
+
+    if ($conn->query($sql) === TRUE) {
+    } else {
+        echo "Terjadi kesalahan: " . $conn->error;
+    }
+    $conn->close();
+}
+?>
+
+
 <main class="main">
-    <!-- Hero Title -->
+
     <div class="page-title dark-background">
-        <!-- <div class="container position-relative">
-            <h1>Kontak</h1>
-            <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p>
-        </div> -->
+
     </div>
 
     <div class="container my-5" data-aos="fade-up" data-aos-delay="200">
-        <!-- Contact Section -->
+
         <section id="contact" class="contact section">
             <div class="container section-title" data-aos="fade-up">
                 <h2>Contact</h2>
@@ -47,34 +64,24 @@
                     </div>
 
                     <div class="col-lg-8">
-                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-                            <div class="row gy-4">
-
-                                <div class="col-md-6">
-                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                                </div>
-
-                                <div class="col-md-6 ">
-                                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                                </div>
-
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                                </div>
-
-                                <div class="col-md-12">
-                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                                </div>
-
-                                <div class="col-md-12 text-center">
-                                    <div class="loading">Loading</div>
-                                    <div class="error-message"></div>
-                                    <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                                    <button type="submit">Send Message</button>
-                                </div>
-
+                        <form action="" method="post">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subjeck" class="form-label">Subjek</label>
+                                <input type="text" class="form-control" id="subjeck" name="subjeck" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Pesan</label>
+                                <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kirim Pesan</button>
                         </form>
                     </div>
 
@@ -106,8 +113,7 @@
         </div>
     </div>
 </footer>
-<!-- Scroll Top -->
+
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<!-- Preloader -->
 <div id="preloader"></div>
