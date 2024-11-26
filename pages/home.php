@@ -1,3 +1,10 @@
+<?php
+include 'koneksi.php';
+
+$sql = "SELECT * FROM galery";
+$result = $conn->query($sql);
+
+?>
 <main class="main">
 
   <!-- Hero Section -->
@@ -19,6 +26,20 @@
           <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
         </div>
       </div>
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
+          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+      </a>
+      <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      </a>
     </div>
 
     <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
@@ -89,84 +110,58 @@
   <!-- Gallery Section -->
   <section id="gallery" class="gallery section">
 
-
+    <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
       <h2>Gallery</h2>
       <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-    </div>
+    </div><!-- End Section Title -->
 
     <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
 
       <div class="row g-0">
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/1.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/1.jpg" alt="" class="img-fluid">
-            </a>
+        <?php while ($row = $result->fetch_assoc()) { ?>
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="admin/uploads/<?= $row['gambar'] ?>" class="glightbox" data-gallery="images-gallery">
+                <img src="admin/uploads/<?= $row['gambar'] ?>" class="img-fluid">
+              </a>
+            </div>
           </div>
-        </div><!-- End Gallery Item -->
+        <?php } ?>
 
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/15.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/15.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div><!-- End Gallery Item -->
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/17.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/17.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div><!-- End Gallery Item -->
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/12.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/12.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/11.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/11.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/8.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/8.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/9.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/9.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="gallery-item">
-            <a href="assets/img/gallery/10.jpg" class="glightbox" data-gallery="images-gallery">
-              <img src="assets/img/gallery/10.jpg" alt="" class="img-fluid">
-            </a>
-          </div>
-        </div>
       </div>
 
     </div>
+
   </section>
+
+
 </main>
-<?php include('footer.html'); ?>
+
+<footer id="footer" class="footer light-background">
+  <div class="container">
+    <h3 class="sitename">Desa Larangan Slampar</h3>
+    <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+    <div class="social-links d-flex justify-content-center">
+      <a href=""><i class="bi bi-twitter-x"></i></a>
+      <a href=""><i class="bi bi-facebook"></i></a>
+      <a href=""><i class="bi bi-instagram"></i></a>
+      <a href=""><i class="bi bi-skype"></i></a>
+      <a href=""><i class="bi bi-linkedin"></i></a>
+    </div>
+    <div class="container">
+      <div class="copyright">
+        <span>Copyright</span> <strong class="px-1 sitename">Riyan.a_w</strong> <span>All Rights Reserved</span>
+      </div>
+      <div class="credits">
+        Designed by Riyan.a_w</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Preloader -->
 <div id="preloader"></div>
