@@ -1,0 +1,44 @@
+-- Membuat database
+CREATE DATABASE IF NOT EXISTS desa;
+
+-- Menggunakan database
+USE desa;
+
+-- Tabel admin
+CREATE TABLE admin (
+  id_admin INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+-- Tabel galery
+CREATE TABLE galery (
+  id_galery INT AUTO_INCREMENT PRIMARY KEY,
+  gambar VARCHAR(255) NOT NULL
+);
+
+-- Tabel berita
+CREATE TABLE berita (
+  id_berita INT AUTO_INCREMENT PRIMARY KEY,
+  gambar VARCHAR(255) NOT NULL,
+  judul VARCHAR(255) NOT NULL,
+  keterangan TEXT NOT NULL,
+  tanggal DATE NOT NULL
+);
+
+-- Tabel kontak
+CREATE TABLE kontak (
+  id_kontak INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  subjeck VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL
+);
+
+-- Tabel struktur
+CREATE TABLE struktur (
+  id_struktur INT AUTO_INCREMENT PRIMARY KEY,
+  nama VARCHAR(100) NOT NULL,
+  jabatan VARCHAR(100) NOT NULL,
+  gambar VARCHAR(255) NOT NULL
+);
