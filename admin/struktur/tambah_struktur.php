@@ -36,7 +36,7 @@ if (!isset($_SESSION['id_admin'])) {
             </div>
             <button type="submit" class="btn btn-primary">Tambah</button>
         </form>
-        <a href="struktur.php" class="btn btn-secondary mt-3">Kembali ke Daftar Struktur</a>
+        <a href="../../index_admin.php?page=struktur" class="btn btn-secondary mt-3">Kembali ke Daftar Struktur</a>
     </div>
 </body>
 

@@ -44,7 +44,7 @@ if (isset($_GET['id_berita'])) {
         <p><strong>Keterangan:</strong></p>
         <p><?= nl2br(htmlspecialchars($row['keterangan'])) ?></p>
         <p><strong>Tanggal:</strong> <?= htmlspecialchars($row['tanggal']) ?></p>
-        <a href="berita.php" class="btn btn-secondary">Kembali ke Berita</a>
+        <a href="../../index_admin.php?page=berita" class="btn btn-secondary">Kembali ke Berita</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

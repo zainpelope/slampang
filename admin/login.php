@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['id_admin'] = $row['id_admin'];
             $_SESSION['email'] = $row['email'];
 
-            header("Location: index.php");
+            header("Location: ../index_admin.php?admin=home_admin");
             exit();
         } else {
             $error = "Password salah!";
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="error"><?= htmlspecialchars($error); ?></p>
             <?php endif; ?>
             <button type="submit" class="login-btn">Login</button>
-            <a href="../index.php?page=home"><button type="button" class="back-btn">Back</button></a>
+            <a href="../index_admin.php?page=home"><button type="button" class="back-btn">Back</button></a>
         </form>
 
 

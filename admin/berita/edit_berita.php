@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssi", $judul, $keterangan, $tanggal, $gambarLama, $id_berita);
 
     if ($stmt->execute()) {
-        header("Location: berita.php");
+        header("Location: ../../index_admin.php?page=berita");
         exit();
     } else {
         echo "Error: " . $stmt->error;
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="../uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid mt-2" style="max-width: 200px;">
             </div>
             <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-            <a href="berita.php" class="btn btn-secondary">Kembali</a>
+            <a href="../../index_admin.php?page=berita" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 

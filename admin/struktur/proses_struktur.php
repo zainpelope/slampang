@@ -21,6 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar"])) {
         $stmt->execute();
         $stmt->close();
     }
-    header("Location: struktur.php");
+    header("Location: ../../index_admin.php?page=struktur");
     exit();
 }

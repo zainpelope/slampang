@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar"])) {
         $stmt->execute();
         $stmt->close();
 
-        header("Location: galery.php");
+        header("Location: ../../index_admin.php?page=galery");
         exit();
     }
 }
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar"])) {
                 <input type="file" class="form-control" name="gambar" required>
             </div>
             <button type="submit" class="btn btn-primary">Tambah Gambar</button>
-            <a href="galery.php" class="btn btn-secondary">Kembali</a>
+            <a href="../../index_admin.php?page=galery" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

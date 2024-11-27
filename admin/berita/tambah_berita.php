@@ -3,7 +3,7 @@ include '../../koneksi.php';
 session_start();
 
 if (!isset($_SESSION['id_admin'])) {
-    header("Location: login.php");
+    header("Location: ../../index_admin.php?page=berita");
     exit();
 }
 
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $imageName, $judul, $keterangan, $tanggal);
 
         if ($stmt->execute()) {
-            header("Location: berita.php");
+            header("Location: ../../index_admin.php?page=berita");
             exit();
         } else {
             echo "Error: " . $stmt->error;

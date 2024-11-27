@@ -1,5 +1,5 @@
 <?php
-include '../../koneksi.php';
+include 'koneksi.php';
 session_start();
 
 $sql = "SELECT * FROM galery";
@@ -15,7 +15,7 @@ if (isset($_GET['hapus'])) {
     $stmt->fetch();
     $stmt->close();
 
-    unlink("../uploads/" . $gambar);
+    unlink("admin/uploads/" . $gambar);
 
     $sql = "DELETE FROM galery WHERE id_galery = ?";
     $stmt = $conn->prepare($sql);
@@ -23,34 +23,30 @@ if (isset($_GET['hapus'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: galery.php");
+    header("Location: index_admin.php?page=galery");
     exit();
 }
 ?>
+<main class="main">
+    <!-- Hero Title -->
+    <div class="page-title dark-background">
 
-<!DOCTYPE html>
-<html lang="en">
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
     <div class="container mt-5">
         <h1>Galeri</h1>
-        <a href="form_tambah_gambar.php" class="btn btn-primary mb-4">Tambah Gambar</a>
+        <a href="admin/galery/form_tambah_gambar.php" class="btn btn-primary mb-4">Tambah Gambar</a>
 
         <h2>Daftar Gambar</h2>
         <div class="row mt-3">
             <?php while ($row = $result->fetch_assoc()) { ?>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="../uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar">
+                        <img src="admin/uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar">
                         <div class="card-body">
-                            <a href="galery.php?hapus=<?= $row['id_galery'] ?>" class="btn btn-danger">Hapus</a>
+                            <a href="index_admin.php?page=galery&hapus=<?= $row['id_galery'] ?>" class="btn btn-danger">Hapus</a>
+
+
                         </div>
                     </div>
                 </div>
@@ -58,6 +54,10 @@ if (isset($_GET['hapus'])) {
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+</main>
+<?php include('footer.html'); ?>
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-</html>
+<!-- Preloader -->
+<div id="preloader"></div>
