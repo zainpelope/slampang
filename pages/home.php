@@ -120,6 +120,15 @@ $result = $conn->query($sql);
 
       <div class="row g-0">
         <?php while ($row = $result->fetch_assoc()) { ?>
+          <style>
+            .gallery-item img {
+              width: 200%;
+              height: 200px;
+              object-fit: cover;
+              border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+          </style>
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
               <a href="admin/uploads/<?= $row['gambar'] ?>" class="glightbox" data-gallery="images-gallery">
@@ -128,6 +137,7 @@ $result = $conn->query($sql);
             </div>
           </div>
         <?php } ?>
+
 
       </div>
 

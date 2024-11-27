@@ -1,5 +1,5 @@
 <?php
-include '../koneksi.php';
+include '../../koneksi.php';
 session_start();
 
 if (!isset($_SESSION['id_admin'])) {
@@ -9,8 +9,6 @@ if (!isset($_SESSION['id_admin'])) {
 
 if (isset($_GET['id_berita'])) {
     $id_berita = $_GET['id_berita'];
-
-    // Fetch the news details based on id_berita
     $sql = "SELECT * FROM berita WHERE id_berita = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_berita);
@@ -42,7 +40,7 @@ if (isset($_GET['id_berita'])) {
 <body>
     <div class="container mt-5">
         <h1><?= htmlspecialchars($row['judul']) ?></h1>
-        <img src="uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid mb-3" style="max-width: 500px;">
+        <img src="../uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid mb-3" style="max-width: 500px;">
         <p><strong>Keterangan:</strong></p>
         <p><?= nl2br(htmlspecialchars($row['keterangan'])) ?></p>
         <p><strong>Tanggal:</strong> <?= htmlspecialchars($row['tanggal']) ?></p>

@@ -28,9 +28,9 @@ if (!isset($_SESSION['id_admin'])) {
 
         <!-- Tombol Navigasi -->
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="galery.php" class="btn btn-primary btn-lg">Galeri</a>
-            <a href="struktur.php" class="btn btn-success btn-lg">Struktur</a>
-            <a href="berita.php" class="btn btn-warning btn-lg">Berita</a>
+            <a href="galery/galery.php" class="btn btn-primary btn-lg">Galeri</a>
+            <a href="struktur/struktur.php" class="btn btn-success btn-lg">Struktur</a>
+            <a href="berita/berita.php" class="btn btn-warning btn-lg">Berita</a>
         </div>
 
         <!-- Logout -->

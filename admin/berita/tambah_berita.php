@@ -1,5 +1,5 @@
 <?php
-include '../koneksi.php';
+include '../../koneksi.php';
 session_start();
 
 if (!isset($_SESSION['id_admin'])) {
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $image = $_FILES['gambar'];
     $imageName = time() . "_" . basename($image['name']);
-    $targetDirectory = 'uploads/';
+    $targetDirectory = '../uploads/';
     $targetFile = $targetDirectory . $imageName;
 
     if (getimagesize($image['tmp_name']) === false) {
@@ -30,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $imageName, $judul, $keterangan, $tanggal);
 
         if ($stmt->execute()) {
-            echo "Berita berhasil ditambahkan!";
+            header("Location: berita.php");
+            exit();
         } else {
             echo "Error: " . $stmt->error;
         }
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container mt-5">
         <h1>Tambah Berita</h1>
-        <form action="berita.php" method="POST" enctype="multipart/form-data">
+        <form action="tambah_berita.php" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar</label>
                 <input type="file" class="form-control" name="gambar" accept="image/*" required>
@@ -70,29 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input type="date" class="form-control" name="tanggal" required>
+                <input type="date" class="form-control" name="tanggal" value="<?= date('Y-m-d') ?>" required>
             </div>
+
             <button type="submit" class="btn btn-primary">Tambah Berita</button>
         </form>
-
-        <h2 class="mt-4">Daftar Berita</h2>
-        <div class="list-group mt-3">
-            <?php
-            $sql = "SELECT * FROM berita";
-            $result = $conn->query($sql);
-
-            while ($row = $result->fetch_assoc()) {
-            ?>
-                <a href="berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="list-group-item list-group-item-action">
-                    <h5 class="mb-1"><?= htmlspecialchars($row['judul']) ?></h5>
-                    <img src="uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid mb-2" style="max-width: 200px;">
-                    <p class="mb-1"><?= htmlspecialchars($row['keterangan']) ?></p>
-                    <p class="text-muted"><?= htmlspecialchars($row['tanggal']) ?></p>
-                    <a href="berita.php?hapus=<?= $row['id_berita'] ?>" class="btn btn-danger">Hapus</a>
-                </a>
-
-            <?php } ?>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
