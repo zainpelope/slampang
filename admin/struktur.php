@@ -37,32 +37,49 @@ if (isset($_GET['hapus'])) {
 ?>
 <main class="main">
     <!-- Hero Title -->
-    <div class="page-title dark-background">
-        <!-- <div class="container position-relative">
-            <h1>Profil Desa</h1>
-            <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p>
-        </div> -->
+    <div class="page-title dark-background text-center py-5 text-white">
+
     </div>
 
     <div class="container mt-5">
-        <h1>Daftar Struktur Organisasi</h1>
-        <a href="admin/struktur/tambah_struktur.php" class="btn btn-primary mb-3">Tambah Struktur</a>
-        <div class="row mt-3">
-            <?php while ($row = $result->fetch_assoc()) { ?>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="admin/uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Struktur">
-                        <div class="card-body">
-                            <p class="card-text"><?= htmlspecialchars($row['nama']) ?> - <?= htmlspecialchars($row['jabatan']) ?></p>
-                            <a href="index_admin.php?page=struktur&hapus=<?= $row['id_struktur'] ?>" class="btn btn-danger">Hapus</a>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Daftar Struktur</h2>
+            <a href="admin/struktur/tambah_struktur.php" class="btn btn-primary">Tambah Struktur</a>
+        </div>
 
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Foto</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1;
+                    while ($row = $result->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?= $no++; ?></td>
+                            <td>
+                                <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" alt="Struktur" style="width: 80px; height: 80px; object-fit: cover;">
+                            </td>
+                            <td><?= htmlspecialchars($row['nama']) ?></td>
+                            <td><?= htmlspecialchars($row['jabatan']) ?></td>
+                            <td>
+                                <a href="index_admin.php?page=struktur&hapus=<?= $row['id_struktur'] ?>" class="btn btn-danger btn-sm">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </main>
+<br><br><br>
 <?php include('footer.html'); ?>
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

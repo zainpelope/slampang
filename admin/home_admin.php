@@ -13,7 +13,7 @@ $result = $conn->query($sql);
             <!-- Slide 1 -->
             <div class="carousel-item active">
                 <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Desa Larangan Slampar</span></h2>
+                    <h2 class="animate__animated animate__fadeInDown">Selamat Datang<br>di Desa Larangan Slampar</h2>
                     <p class="animate__animated animate__fadeInUp">Desa Larangan Slampar merupakan salah satu desa yang berada di Ujung Utara Kecamatan Tlanakan Kabupaten Pamekasan, dengan luas desa ± 517,00 Ha serta jumlah penduduknya berkisar 6.515 jiwa, mayoritas mata pencaharian masyarakatnya sebagai petani.</p>
                     <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
                 </div>
@@ -22,18 +22,18 @@ $result = $conn->query($sql);
             <div class="carousel-item">
                 <div class="carousel-container">
                     <h2 class="animate__animated animate__fadeInDown">Desa Larangan Slampar</h2>
-                    <p class="animate__animated animate__fadeInUp">Desa Larangan Slampar merupakan salah satu desa yang berada di Ujung Utara Kecamatan Tlanakan Kabupaten Pamekasan, dengan luas desa ± 517,00 Ha serta jumlah penduduknya berkisar 6.515 jiwa, mayoritas mata pencaharian masyarakatnya sebagai petani.</p>
+                    <p class="animate__animated animate__fadeInUp">Desa Larangan Slampar memiliki 9 Dusun yakni Dusun
+                        Gergunung Dejeh, Dusun Gergunung Laok, Dusun Karpote, Dusun
+                        Torbalangan, Dusun Nyabangan, Dusun Lonsambi, Dusun Tengah, Dusun
+                        Larangan, dan Dusun Morlaok. Angka curah hujan yang biasa terjadi di
+                        Desa Larangan Slampar rata-rata cukup rendah, yakni sebesar 1112,4 mm pertahun sebagaimana yang terjadi di daerah lain di Indinesia. Di Desa
+                        Larangan Slampar beriklim tropis dengan kelembapan udaranya ±65%
+                        serta curah hujan terendah terjadi pada bulan juni sampai dengan bulan
+                        oktober.</p>
                     <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
                 </div>
             </div>
-            <!-- Slide 3 -->
-            <div class="carousel-item">
-                <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-                    <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-                    <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
-                </div>
-            </div>
+
             <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
             </a>

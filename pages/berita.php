@@ -19,14 +19,22 @@ include 'koneksi.php';
                     ?>
                         <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
                             <div class="member">
-                                <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid" alt="">
-                                <div class="member-content">
-                                    <h5 class="mb-1"><?= htmlspecialchars($row['judul']) ?></h5>
-                                    <p class="text-muted"><?= htmlspecialchars($row['tanggal']) ?></p>
-                                    <p class="mb-1"><?= htmlspecialchars($row['keterangan']) ?></p>
-                                </div>
+                                <a href="pages/detail_berita.php?id=<?= $row['id_berita']; ?>">
+                                    <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid" alt="" style="width: 200px; height: 200px; object-fit: cover;">
+
+                                    <div class="member-content">
+                                        <h5 class="mb-1"><?= htmlspecialchars($row['judul']) ?></h5>
+                                        <p class="text-muted"><?= htmlspecialchars($row['tanggal']) ?></p>
+                                        <p class="mb-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                                            <?= htmlspecialchars($row['keterangan']) ?>
+                                        </p>
+                                        <a href="pages/detail_berita.php?id=<?= $row['id_berita']; ?>" class="btn btn-link">Lihat Selengkapnya</a>
+                                    </div>
+                                </a>
                             </div>
                         </div>
+
+
                     <?php } ?>
                 </div>
             </div>

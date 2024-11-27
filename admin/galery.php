@@ -29,24 +29,25 @@ if (isset($_GET['hapus'])) {
 ?>
 <main class="main">
     <!-- Hero Title -->
-    <div class="page-title dark-background">
+    <div class="page-title dark-background text-center py-5 text-white">
 
     </div>
 
     <div class="container mt-5">
-        <h1>Galeri</h1>
-        <a href="admin/galery/form_tambah_gambar.php" class="btn btn-primary mb-4">Tambah Gambar</a>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Daftar Gambar</h2>
+            <a href="admin/galery/form_tambah_gambar.php" class="btn btn-primary">Tambah Gambar</a>
+        </div>
 
-        <h2>Daftar Gambar</h2>
-        <div class="row mt-3">
+        <div class="row g-4">
             <?php while ($row = $result->fetch_assoc()) { ?>
                 <div class="col-md-3">
-                    <div class="card">
-                        <img src="admin/uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar">
-                        <div class="card-body">
-                            <a href="index_admin.php?page=galery&hapus=<?= $row['id_galery'] ?>" class="btn btn-danger">Hapus</a>
-
-
+                    <div class="card shadow-sm">
+                        <div class="ratio ratio-1x1">
+                            <img src="admin/uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar" style="object-fit: cover;">
+                        </div>
+                        <div class="card-body text-center">
+                            <a href="index_admin.php?page=galery&hapus=<?= $row['id_galery'] ?>" class="btn btn-danger btn-sm">Hapus</a>
                         </div>
                     </div>
                 </div>
@@ -55,6 +56,8 @@ if (isset($_GET['hapus'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </main>
+<br><br><br>
+
 <?php include('footer.html'); ?>
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <section id="contact" class="contact section">
             <div class="container section-title" data-aos="fade-up">
-                <h2>Contact</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <h2>Kontak</h2>
+                <p>Jika Anda memiliki saran, kritik, atau masukan terkait Desa Larangan Slampar, silakan sampaikan melalui kontak resmi desa. Masukan Anda sangat berarti untuk mendukung pengembangan dan kemajuan desa secara bersama-sama.</p>
             </div>
 
             <div class="container" data-aos="fade" data-aos-delay="100">
@@ -40,24 +40,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
                             <div>
-                                <h3>Address</h3>
-                                <p>A108 Adam Street, New York, NY 535022</p>
+                                <h3>Alamat</h3>
+                                <p>Desa Larangan Slampar, Kecamatan Tlanakan, Kabupaten Pamekasan.</p>
                             </div>
                         </div>
 
                         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
                             <i class="bi bi-telephone flex-shrink-0"></i>
                             <div>
-                                <h3>Call Us</h3>
-                                <p>+1 5589 55488 55</p>
+                                <h3>Nomor Telpon</h3>
+                                <p>+62 878-4006-0990</p>
                             </div>
                         </div>
 
                         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
                             <i class="bi bi-envelope flex-shrink-0"></i>
                             <div>
-                                <h3>Email Us</h3>
-                                <p>info@example.com</p>
+                                <h3>Email</h3>
+                                <p>larangan_slampar@gmail.com</p>
                             </div>
                         </div>
 

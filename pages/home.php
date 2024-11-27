@@ -13,7 +13,7 @@ $result = $conn->query($sql);
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Desa Larangan Slampar</span></h2>
+          <h2 class="animate__animated animate__fadeInDown">Selamat Datang<br>di Desa Larangan Slampar</h2>
           <p class="animate__animated animate__fadeInUp">Desa Larangan Slampar merupakan salah satu desa yang berada di Ujung Utara Kecamatan Tlanakan Kabupaten Pamekasan, dengan luas desa ± 517,00 Ha serta jumlah penduduknya berkisar 6.515 jiwa, mayoritas mata pencaharian masyarakatnya sebagai petani.</p>
           <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
         </div>
@@ -22,18 +22,18 @@ $result = $conn->query($sql);
       <div class="carousel-item">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Desa Larangan Slampar</h2>
-          <p class="animate__animated animate__fadeInUp">Desa Larangan Slampar merupakan salah satu desa yang berada di Ujung Utara Kecamatan Tlanakan Kabupaten Pamekasan, dengan luas desa ± 517,00 Ha serta jumlah penduduknya berkisar 6.515 jiwa, mayoritas mata pencaharian masyarakatnya sebagai petani.</p>
+          <p class="animate__animated animate__fadeInUp">Desa Larangan Slampar memiliki 9 Dusun yakni Dusun
+            Gergunung Dejeh, Dusun Gergunung Laok, Dusun Karpote, Dusun
+            Torbalangan, Dusun Nyabangan, Dusun Lonsambi, Dusun Tengah, Dusun
+            Larangan, dan Dusun Morlaok. Angka curah hujan yang biasa terjadi di
+            Desa Larangan Slampar rata-rata cukup rendah, yakni sebesar 1112,4 mm pertahun sebagaimana yang terjadi di daerah lain di Indinesia. Di Desa
+            Larangan Slampar beriklim tropis dengan kelembapan udaranya ±65%
+            serta curah hujan terendah terjadi pada bulan juni sampai dengan bulan
+            oktober.</p>
           <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
         </div>
       </div>
-      <!-- Slide 3 -->
-      <div class="carousel-item">
-        <div class="carousel-container">
-          <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
-        </div>
-      </div>
+
       <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
       </a>
@@ -65,7 +65,7 @@ $result = $conn->query($sql);
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
       <h2>Potensi Desa</h2>
-      <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      <p>Dari segi potensi alam, Desa Larangan Slampar memiliki tanah yang subur, sehingga mendukung aktivitas pertanian seperti penanaman padi, jagung, dan kacang-kacangan. Selain itu, lokasinya yang dekat dengan wilayah pesisir memberikan peluang untuk pengembangan sektor perikanan tangkap maupun budidaya. Keindahan alam di sekitar desa ini juga memiliki potensi untuk dikembangkan menjadi destinasi ekowisata, seperti kebun edukasi atau area konservasi yang dapat menarik wisatawan.</p>
     </div><!-- End Section Title -->
 
     <div class="container">
@@ -80,7 +80,8 @@ $result = $conn->query($sql);
             <i class="bi bi-globe-americas flex-shrink-0"></i>
             <div>
               <h4>Potensi Alam</h4>
-              <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+              <p>
+                Potensi alam Desa Larangan Slampar juga mencakup ketersediaan sumber daya air yang mendukung irigasi pertanian, lahan hijau yang cocok untuk pengembangan hortikultura, serta keanekaragaman hayati yang dapat dimanfaatkan untuk program konservasi dan pemberdayaan ekonomi berbasis lingkungan.</p>
             </div>
           </div>
 
@@ -88,7 +89,7 @@ $result = $conn->query($sql);
             <i class="bi bi-tree-fill flex-shrink-0"></i>
             <div>
               <h4>Sumber Daya Desa</h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+              <p>Sumber daya desa di Larangan Slampar juga sangat mendukung pembangunan, baik dari segi tenaga kerja lokal yang sebagian besar memiliki keterampilan di sektor agraris, kerajinan, maupun perdagangan, maupun lembaga-lembaga desa seperti Badan Usaha Milik Desa (BUMDes) yang dapat membantu mengelola potensi desa secara optimal.</p>
             </div>
           </div>
 
@@ -96,7 +97,7 @@ $result = $conn->query($sql);
             <i class="bi bi-broadcast flex-shrink-0"></i>
             <div>
               <h4>Usaha Mikro, Kecil, Menengan (UMKM)</h4>
-              <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+              <p>Desa Larangan Slampar, yang terletak di Kecamatan Tlanakan, Kabupaten Pamekasan, Jawa Timur, memiliki potensi besar dalam pengembangan Usaha Mikro, Kecil, dan Menengah (UMKM), potensi alam, serta sumber daya desa yang melimpah.</p>
             </div>
           </div>
 
@@ -113,7 +114,7 @@ $result = $conn->query($sql);
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
       <h2>Gallery</h2>
-      <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      <p>Desa Larangan Slampar memiliki galeri visual yang menampilkan keindahan alam, kegiatan masyarakat, serta produk lokal unggulan melalui kumpulan gambar yang dapat menggambarkan identitas dan potensi desa secara visual.</p>
     </div><!-- End Section Title -->
 
     <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">

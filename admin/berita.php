@@ -32,35 +32,63 @@ if (isset($_GET['hapus'])) {
 $sql = "SELECT * FROM berita";
 $result = $conn->query($sql);
 ?>
-<main class="main">
+<main class="main ">
     <!-- Hero Title -->
-    <div class="page-title dark-background">
-        <!-- <div class="container position-relative">
-            <h1>Profil Desa</h1>
-            <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p>
-        </div> -->
-    </div>
+    <div class="page-title dark-background text-center py-5 text-white">
 
+    </div>
     <div class="container mt-5">
-        <h1>Daftar Berita</h1>
+        <h1 class="text-center">Daftar Berita</h1>
         <a href="admin/berita/tambah_berita.php" class="btn btn-primary mb-3">Tambah Berita</a>
-        <div class="list-group mt-3">
-            <?php while ($row = $result->fetch_assoc()) { ?>
-                <div class="list-group-item">
-                    <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none">
-                        <h5 class="mb-1"><?= htmlspecialchars($row['judul']) ?></h5>
-                        <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid mb-2" style="max-width: 200px;">
-                        <p class="mb-1"><?= htmlspecialchars($row['keterangan']) ?></p>
-                        <p class="text-muted"><?= htmlspecialchars($row['tanggal']) ?></p>
-                    </a>
-                    <div class="mt-2">
-                        <a href="admin/berita/edit_berita.php?id_berita=<?= $row['id_berita'] ?>" class="btn btn-warning">Edit</a>
-                        <a href="index_admin.php?page=berita&hapus=<?= $row['id_berita'] ?>" class="btn btn-danger">Hapus</a>
-                    </div>
-                </div>
-            <?php } ?>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Gambar</th>
+                        <th>Keterangan</th>
+                        <th>Tanggal</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1;
+                    while ($row = $result->fetch_assoc()) {
+                    ?>
+
+                        <tr>
+                            <td class="text-center"><?= $no++ ?></td>
+                            <td>
+                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none" style="color: black;">
+                                    <?= htmlspecialchars($row['judul']) ?>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none">
+                                    <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-thumbnail" style="max-width: 150px; max-height: 150px; width: 150px; height: 150px; object-fit: cover;">
+
+                                </a>
+                            </td>
+                            <td style="display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none" style="color: black;">
+                                    <?= htmlspecialchars($row['keterangan']) ?>
+                                </a>
+                            </td>
+                            <td class="text-center"><?= htmlspecialchars($row['tanggal']) ?></td>
+                            <td class="text-center">
+                                <a href="admin/berita/edit_berita.php?id_berita=<?= $row['id_berita'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="index_admin.php?page=berita&hapus=<?= $row['id_berita'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                </tbody>
+            </table>
         </div>
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
