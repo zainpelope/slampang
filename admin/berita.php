@@ -61,23 +61,24 @@ $result = $conn->query($sql);
                         <tr>
                             <td class="text-center"><?= $no++ ?></td>
                             <td>
-                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none" style="color: black;">
-                                    <?= htmlspecialchars($row['judul']) ?>
+
+                                <?= htmlspecialchars($row['judul']) ?>
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none">
-                                    <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-thumbnail" style="max-width: 150px; max-height: 150px; width: 150px; height: 150px; object-fit: cover;">
+
+                                <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-thumbnail" style="max-width: 150px; max-height: 150px; width: 150px; height: 150px; object-fit: cover;">
 
                                 </a>
                             </td>
                             <td style="display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
-                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="text-decoration-none" style="color: black;">
-                                    <?= htmlspecialchars($row['keterangan']) ?>
+
+                                <?= htmlspecialchars($row['keterangan']) ?>
                                 </a>
                             </td>
                             <td class="text-center"><?= htmlspecialchars($row['tanggal']) ?></td>
                             <td class="text-center">
+                                <a href="admin/berita/berita_detail.php?id_berita=<?= $row['id_berita'] ?>" class="btn btn-warning btn-sm">Detail</a>
                                 <a href="admin/berita/edit_berita.php?id_berita=<?= $row['id_berita'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                 <a href="index_admin.php?page=berita&hapus=<?= $row['id_berita'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">Hapus</a>
                             </td>
