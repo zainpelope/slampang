@@ -47,8 +47,23 @@ if (isset($_GET['hapus'])) {
                             <img src="admin/uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar" style="object-fit: cover;">
                         </div>
                         <div class="card-body text-center">
-                            <a href="index_admin.php?page=galery&hapus=<?= $row['id_galery'] ?>" class="btn btn-danger btn-sm">Hapus</a>
+                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $row['id_galery'] ?>)">Hapus</button>
                         </div>
+
+                        <script>
+                            function confirmDelete(id) {
+
+                                const userConfirmed = confirm("Apakah Anda yakin ingin menghapus gambar ini?");
+                                if (userConfirmed) {
+
+                                    window.location.href = `index_admin.php?page=galery&hapus=${id}`;
+                                } else {
+
+                                    return;
+                                }
+                            }
+                        </script>
+
                     </div>
                 </div>
             <?php } ?>

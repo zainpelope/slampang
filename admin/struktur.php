@@ -70,8 +70,23 @@ if (isset($_GET['hapus'])) {
                             <td><?= htmlspecialchars($row['nama']) ?></td>
                             <td><?= htmlspecialchars($row['jabatan']) ?></td>
                             <td>
-                                <a href="index_admin.php?page=struktur&hapus=<?= $row['id_struktur'] ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                <button class="btn btn-danger btn-sm" onclick="confirmDeleteStruktur(<?= $row['id_struktur'] ?>)">Hapus</button>
                             </td>
+
+                            <script>
+                                function confirmDeleteStruktur(id) {
+
+                                    const userConfirmed = confirm("Apakah Anda yakin ingin menghapus struktur ini?");
+                                    if (userConfirmed) {
+
+                                        window.location.href = `index_admin.php?page=struktur&hapus=${id}`;
+                                    } else {
+
+                                        return;
+                                    }
+                                }
+                            </script>
+
                         </tr>
                     <?php } ?>
                 </tbody>
