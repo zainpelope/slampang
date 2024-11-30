@@ -27,6 +27,7 @@ $result = $conn->query($sql);
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .delete-btn:hover {
@@ -40,10 +41,45 @@ $result = $conn->query($sql);
             border: none;
             border-radius: 5px;
             text-decoration: none;
+            transition: background-color 0.3s ease;
         }
 
         .back-btn:hover {
             background-color: #0056b3;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .close {
+            font-size: 1.5rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .close:hover {
+            color: #c82333;
+        }
+
+        .table-container {
+            max-height: 400px;
+            /* Adjust this height based on your needs */
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -51,52 +87,63 @@ $result = $conn->query($sql);
 <body>
 
     <div class="container my-5">
-        <h1 class="text-center mb-4">Kotak Masuk</h1>
+
 
         <?php if ($result->num_rows > 0): ?>
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Subjek</th>
-                        <th>Pesan</th>
-                        <th>Tanggal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $no = 1; ?>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><?php echo htmlspecialchars($row['name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['email']); ?></td>
-                            <td><?php echo htmlspecialchars($row['subjeck']); ?></td>
-                            <td><?php echo nl2br(htmlspecialchars($row['message'])); ?></td>
-                            <td><?php echo date("d-m-Y H:i:s", strtotime($row['created_at'])); ?></td>
-                            <td>
-                                <form action="../admin/delete_kontak.php" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesan ini?');">
-                                    <input type="hidden" name="id_kontak" value="<?php echo $row['id_kontak']; ?>">
-                                    <button type="submit" class="delete-btn">Hapus</button>
-                                </form>
-
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Pesan Masuk</h4>
+                    <button class="close" onclick="window.location.href='../index_admin.php?page=masuk'">&times;</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Subjek</th>
+                                    <th>Pesan</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1; ?>
+                                <?php while ($row = $result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['subjeck']); ?></td>
+                                        <td><?php echo nl2br(htmlspecialchars($row['message'])); ?></td>
+                                        <td><?php echo date("d-m-Y H:i:s", strtotime($row['created_at'])); ?></td>
+                                        <td>
+                                            <form action="../admin/delete_kontak.php" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesan ini?');">
+                                                <input type="hidden" name="id_kontak" value="<?php echo $row['id_kontak']; ?>">
+                                                <button type="submit" class="delete-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus pesan ini">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         <?php else: ?>
             <div class="alert alert-info text-center">Belum ada pesan masuk.</div>
         <?php endif; ?>
 
-        <div class="text-center mt-4">
-            <a href="../index_admin.php?page=masuk" class="back-btn">Kembali ke Halaman Masuk</a>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-wEmeIV1mKuiNp12sAOF3m27B2QF2xnQL3cbsX7PsGh1S5n0XTsg1BWp3BO5uwsIl" crossorigin="anonymous"></script>
+    <script>
+        // Enable tooltips
+        var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 </body>
 
 </html>
