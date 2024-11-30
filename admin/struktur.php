@@ -70,8 +70,10 @@ if (isset($_GET['hapus'])) {
                             <td><?= htmlspecialchars($row['nama']) ?></td>
                             <td><?= htmlspecialchars($row['jabatan']) ?></td>
                             <td>
+                                <a href="admin/struktur/edit_struktur.php?id=<?= $row['id_struktur'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                 <button class="btn btn-danger btn-sm" onclick="confirmDeleteStruktur(<?= $row['id_struktur'] ?>)">Hapus</button>
                             </td>
+
 
                             <script>
                                 function confirmDeleteStruktur(id) {

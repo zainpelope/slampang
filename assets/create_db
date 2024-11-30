@@ -1,12 +1,12 @@
 
--- Tabel admin (tetap)
+
 CREATE TABLE IF NOT EXISTS admin (
   id_admin INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL
 );
 
--- Tabel galery (menambahkan id_admin sebagai foreign key)
+
 CREATE TABLE IF NOT EXISTS galery (
   id_galery INT AUTO_INCREMENT PRIMARY KEY,
   gambar VARCHAR(255) NOT NULL,
@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS galery (
   FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
--- Tabel berita (menambahkan id_admin sebagai foreign key)
 CREATE TABLE IF NOT EXISTS berita (
   id_berita INT AUTO_INCREMENT PRIMARY KEY,
   gambar VARCHAR(255) NOT NULL,
@@ -25,7 +24,7 @@ CREATE TABLE IF NOT EXISTS berita (
   FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
--- Tabel kontak (menambahkan id_admin sebagai foreign key untuk pelacakan)
+
 CREATE TABLE IF NOT EXISTS kontak (
   id_kontak INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -36,7 +35,7 @@ CREATE TABLE IF NOT EXISTS kontak (
   FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
--- Tabel struktur (menambahkan id_admin sebagai foreign key)
+
 CREATE TABLE IF NOT EXISTS struktur (
   id_struktur INT AUTO_INCREMENT PRIMARY KEY,
   nama VARCHAR(100) NOT NULL,
