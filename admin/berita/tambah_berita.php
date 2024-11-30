@@ -2,44 +2,54 @@
 include '../../koneksi.php';
 session_start();
 
+
 if (!isset($_SESSION['id_admin'])) {
     header("Location: ../../index_admin.php?page=berita");
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $judul = $_POST['judul'];
     $keterangan = $_POST['keterangan'];
     $tanggal = $_POST['tanggal'];
+
+
+    $id_admin = $_SESSION['id_admin'];
+
 
     $image = $_FILES['gambar'];
     $imageName = time() . "_" . basename($image['name']);
     $targetDirectory = '../uploads/';
     $targetFile = $targetDirectory . $imageName;
 
+
     if (getimagesize($image['tmp_name']) === false) {
-        echo "<script>alert('File yang diunggah bukan gambar.');</script>";
+        echo "<script>alert('File yang diunggah bukan gambar.'); window.history.back();</script>";
         exit();
     }
 
+
     if (move_uploaded_file($image['tmp_name'], $targetFile)) {
-        $sql = "INSERT INTO berita (gambar, judul, keterangan, tanggal) 
-                VALUES (?, ?, ?, ?)";
+
+        $sql = "INSERT INTO berita (gambar, judul, keterangan, tanggal, id_admin) 
+                VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $imageName, $judul, $keterangan, $tanggal);
+        $stmt->bind_param("ssssi", $imageName, $judul, $keterangan, $tanggal, $id_admin);
 
         if ($stmt->execute()) {
             echo "<script>alert('Berita berhasil ditambahkan!'); window.location.href='../../index_admin.php?page=berita';</script>";
         } else {
-            echo "<script>alert('Terjadi kesalahan: " . $stmt->error . "');</script>";
+            echo "<script>alert('Terjadi kesalahan: " . $stmt->error . "'); window.history.back();</script>";
         }
 
         $stmt->close();
     } else {
-        echo "<script>alert('Gagal mengunggah gambar.');</script>";
+        echo "<script>alert('Gagal mengunggah gambar.'); window.history.back();</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

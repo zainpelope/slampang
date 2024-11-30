@@ -1,44 +1,47 @@
--- Membuat database
-CREATE DATABASE IF NOT EXISTS desa;
 
--- Menggunakan database
-USE desa;
-
--- Tabel admin
-CREATE TABLE admin (
+-- Tabel admin (tetap)
+CREATE TABLE IF NOT EXISTS admin (
   id_admin INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL
 );
 
--- Tabel galery
-CREATE TABLE galery (
+-- Tabel galery (menambahkan id_admin sebagai foreign key)
+CREATE TABLE IF NOT EXISTS galery (
   id_galery INT AUTO_INCREMENT PRIMARY KEY,
-  gambar VARCHAR(255) NOT NULL
+  gambar VARCHAR(255) NOT NULL,
+  id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
--- Tabel berita
-CREATE TABLE berita (
+-- Tabel berita (menambahkan id_admin sebagai foreign key)
+CREATE TABLE IF NOT EXISTS berita (
   id_berita INT AUTO_INCREMENT PRIMARY KEY,
   gambar VARCHAR(255) NOT NULL,
   judul VARCHAR(255) NOT NULL,
   keterangan TEXT NOT NULL,
-  tanggal DATE NOT NULL
+  tanggal DATE NOT NULL,
+  id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
--- Tabel kontak
-CREATE TABLE kontak (
+-- Tabel kontak (menambahkan id_admin sebagai foreign key untuk pelacakan)
+CREATE TABLE IF NOT EXISTS kontak (
   id_kontak INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,
   subjeck VARCHAR(255) NOT NULL,
-  message TEXT NOT NULL
+  message TEXT NOT NULL,
+  id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
--- Tabel struktur
-CREATE TABLE struktur (
+-- Tabel struktur (menambahkan id_admin sebagai foreign key)
+CREATE TABLE IF NOT EXISTS struktur (
   id_struktur INT AUTO_INCREMENT PRIMARY KEY,
   nama VARCHAR(100) NOT NULL,
   jabatan VARCHAR(100) NOT NULL,
-  gambar VARCHAR(255) NOT NULL
+  gambar VARCHAR(255) NOT NULL,
+  id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
