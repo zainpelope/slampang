@@ -10,6 +10,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO kontak (name, email, subjeck, message) VALUES ('$name', '$email', '$subjeck', '$message')";
 
     if ($conn->query($sql) === TRUE) {
+        $successMessage = "Pesan Anda terkirim!";
+ 
+        echo "<script>
+            setTimeout(function() {
+                window.location.href = 'index.php?page=kontak';
+            }, 2000);
+        </script>";
     } else {
         echo "Terjadi kesalahan: " . $conn->error;
     }
@@ -17,15 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <main class="main">
-
     <div class="page-title dark-background">
-
     </div>
 
     <div class="container my-5" data-aos="fade-up" data-aos-delay="200">
-
         <section id="contact" class="contact section">
             <div class="container section-title" data-aos="fade-up">
                 <h2>Kontak</h2>
@@ -33,9 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="container" data-aos="fade" data-aos-delay="100">
-
                 <div class="row gy-4">
-
                     <div class="col-lg-4">
                         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
                             <i class="bi bi-geo-alt flex-shrink-0"></i>
@@ -60,11 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <p>larangan_slampar@gmail.com</p>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-lg-8">
-                        <form action="" method="post">
+                        <form id="contactForm" action="" method="post">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -81,38 +81,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="message" class="form-label">Pesan</label>
                                 <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton">
+                                <span id="buttonText">Kirim Pesan</span>
+                                <span id="buttonSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
                         </form>
+                        <?php if (isset($successMessage)) : ?>
+                            <div class="alert alert-success mt-3"><?php echo $successMessage; ?></div>
+                        <?php endif; ?>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
     </div>
 </main>
-<footer id="footer" class="footer light-background">
-    <div class="container">
-        <h3 class="sitename">Desa Larangan Slampar</h3>
-        <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
-        <div class="social-links d-flex justify-content-center">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-skype"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-        </div>
-        <div class="container">
-            <div class="copyright">
-                <span>Copyright</span> <strong class="px-1 sitename">Riyan.a_w</strong> <span>All Rights Reserved</span>
-            </div>
-            <div class="credits">
-                Designed by Riyan.a_w</a>
-            </div>
-        </div>
-    </div>
-</footer>
+
+<script>
+    const submitButton = document.getElementById('submitButton');
+    const buttonText = document.getElementById('buttonText');
+    const buttonSpinner = document.getElementById('buttonSpinner');
+
+ 
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        submitButton.disabled = true;
+        buttonText.style.display = 'none';
+        buttonSpinner.classList.remove('d-none');
+
+     
+        setTimeout(() => {
+            this.submit(); 
+        }, 1500); 
+    });
+</script>
+
+<?php include('footer.html'); ?>
 
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

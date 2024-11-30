@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 29, 2024 at 04:42 PM
+-- Generation Time: Nov 30, 2024 at 03:29 AM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.20
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `desa`
+-- Database: `web_desa`
 --
 
 -- --------------------------------------------------------
@@ -51,7 +51,8 @@ CREATE TABLE `berita` (
   `gambar` varchar(255) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `keterangan` text NOT NULL,
-  `tanggal` date NOT NULL
+  `tanggal` date NOT NULL,
+  `id_admin` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -62,7 +63,8 @@ CREATE TABLE `berita` (
 
 CREATE TABLE `galery` (
   `id_galery` int NOT NULL,
-  `gambar` varchar(255) NOT NULL
+  `gambar` varchar(255) NOT NULL,
+  `id_admin` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -79,18 +81,6 @@ CREATE TABLE `kontak` (
   `message` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `kontak`
---
-
-INSERT INTO `kontak` (`id_kontak`, `name`, `email`, `subjeck`, `message`) VALUES
-(1, 'dfddf', 'zain.alapolaa@gmail.com', 'ewre', 'sdfff'),
-(2, 'Memberikan nama wilayah', 'zain.alapolaa@gmail.com', 'ewre', '<form action=\"\" method=\"post\">\r\n            <div class=\"mb-3\">\r\n                <label for=\"name\" class=\"form-label\">Nama</label>\r\n                <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" required>\r\n            </div>\r\n            <div class=\"mb-3\">\r\n                <label for=\"email\" class=\"form-label\">Email</label>\r\n                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" required>\r\n            </div>\r\n            <div class=\"mb-3\">\r\n                <label for=\"subjeck\" class=\"form-label\">Subjek</label>\r\n                <input type=\"text\" class=\"form-control\" id=\"subjeck\" name=\"subjeck\" required>\r\n            </div>\r\n            <div class=\"mb-3\">\r\n                <label for=\"message\" class=\"form-label\">Pesan</label>\r\n                <textarea class=\"form-control\" id=\"message\" name=\"message\" rows=\"4\" required></textarea>\r\n            </div>\r\n            <button type=\"submit\" class=\"btn btn-primary\">Kirim Pesan</button>\r\n        </form>'),
-(3, 'ayam', 'zain.alapolaa@gmail.com', 'ayam', 'ayam'),
-(4, 'ayam', 'zain.alapolaa@gmail.com', 'ayam', 'ayam'),
-(5, 'fsfdfdfdfdfdsfdfdsfdfdfdfds', 'zain.alapolaa@gmail.com', 'ayam', 'sdfd'),
-(6, 'asdsd', 'zain.alapolaa@gmail.com', 'sdsd', 'qwdwdew');
-
 -- --------------------------------------------------------
 
 --
@@ -101,7 +91,8 @@ CREATE TABLE `struktur` (
   `id_struktur` int NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `gambar` varchar(255) NOT NULL
+  `gambar` varchar(255) NOT NULL,
+  `id_admin` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -119,13 +110,15 @@ ALTER TABLE `admin`
 -- Indexes for table `berita`
 --
 ALTER TABLE `berita`
-  ADD PRIMARY KEY (`id_berita`);
+  ADD PRIMARY KEY (`id_berita`),
+  ADD KEY `id_admin` (`id_admin`);
 
 --
 -- Indexes for table `galery`
 --
 ALTER TABLE `galery`
-  ADD PRIMARY KEY (`id_galery`);
+  ADD PRIMARY KEY (`id_galery`),
+  ADD KEY `id_admin` (`id_admin`);
 
 --
 -- Indexes for table `kontak`
@@ -137,7 +130,8 @@ ALTER TABLE `kontak`
 -- Indexes for table `struktur`
 --
 ALTER TABLE `struktur`
-  ADD PRIMARY KEY (`id_struktur`);
+  ADD PRIMARY KEY (`id_struktur`),
+  ADD KEY `id_admin` (`id_admin`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -153,25 +147,47 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id_berita` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_berita` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `galery`
 --
 ALTER TABLE `galery`
-  MODIFY `id_galery` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_galery` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kontak`
 --
 ALTER TABLE `kontak`
-  MODIFY `id_kontak` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kontak` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `struktur`
 --
 ALTER TABLE `struktur`
-  MODIFY `id_struktur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_struktur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `berita`
+--
+ALTER TABLE `berita`
+  ADD CONSTRAINT `berita_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `galery`
+--
+ALTER TABLE `galery`
+  ADD CONSTRAINT `galery_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `struktur`
+--
+ALTER TABLE `struktur`
+  ADD CONSTRAINT `struktur_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
