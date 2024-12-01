@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 30, 2024 at 03:29 AM
+-- Generation Time: Dec 01, 2024 at 02:16 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.20
 
@@ -55,6 +55,13 @@ CREATE TABLE `berita` (
   `id_admin` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `berita`
+--
+
+INSERT INTO `berita` (`id_berita`, `gambar`, `judul`, `keterangan`, `tanggal`, `id_admin`) VALUES
+(2, '1732980262_100x30 1.jpg', 'sdsdcvcvc', 'wewewe', '2024-11-30', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -78,7 +85,9 @@ CREATE TABLE `kontak` (
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `subjeck` varchar(255) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  `status` enum('baru','dibaca') DEFAULT 'baru',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -147,25 +156,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id_berita` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_berita` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `galery`
 --
 ALTER TABLE `galery`
-  MODIFY `id_galery` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_galery` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kontak`
 --
 ALTER TABLE `kontak`
-  MODIFY `id_kontak` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kontak` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `struktur`
 --
 ALTER TABLE `struktur`
-  MODIFY `id_struktur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_struktur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
