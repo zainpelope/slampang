@@ -9,7 +9,7 @@ if (isset($_POST['id_kontak'])) {
     $stmt->bind_param("i", $id_kontak);
     if ($stmt->execute()) {
 
-        header("Location: ../index_admin.php?page=masuk");
+        header("Location: ../admin/kotak_masuk.php");
         exit();
     } else {
 
