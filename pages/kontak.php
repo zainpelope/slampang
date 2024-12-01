@@ -6,12 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $subjeck = $_POST['subjeck'];
     $message = $_POST['message'];
+    $id_admin = 1;
 
-    $sql = "INSERT INTO kontak (name, email, subjeck, message) VALUES ('$name', '$email', '$subjeck', '$message')";
+    $sql = "INSERT INTO kontak (name, email, subjeck, message, id_admin) 
+            VALUES ('$name', '$email', '$subjeck', '$message', '$id_admin')";
 
     if ($conn->query($sql) === TRUE) {
         $successMessage = "Pesan Anda terkirim!";
- 
         echo "<script>
             setTimeout(function() {
                 window.location.href = 'index.php?page=kontak';
@@ -22,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $conn->close();
 }
+
 ?>
 
 <main class="main">
@@ -101,17 +103,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     const buttonText = document.getElementById('buttonText');
     const buttonSpinner = document.getElementById('buttonSpinner');
 
- 
+
     document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault(); 
+        event.preventDefault();
         submitButton.disabled = true;
         buttonText.style.display = 'none';
         buttonSpinner.classList.remove('d-none');
 
-     
+
         setTimeout(() => {
-            this.submit(); 
-        }, 1500); 
+            this.submit();
+        }, 1500);
     });
 </script>
 

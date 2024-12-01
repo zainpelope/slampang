@@ -78,7 +78,6 @@ $result = $conn->query($sql);
 
         .table-container {
             max-height: 400px;
-            /* Adjust this height based on your needs */
             overflow-y: auto;
         }
     </style>
@@ -135,6 +134,13 @@ $result = $conn->query($sql);
         <?php else: ?>
             <div class="alert alert-info text-center">Belum ada pesan masuk.</div>
         <?php endif; ?>
+        <br>
+        <div class="justify-content-center align-items-center">
+            <a href="../index_admin.php?admin=home_admin" class="btn btn-primary btn-lg w-100">Kembali</a>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
     </div>
 
