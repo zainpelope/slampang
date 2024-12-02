@@ -14,7 +14,7 @@ if (!isset($_SESSION['id_admin'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Struktur Organisasi</title>
+    <title>Tambah Struktur</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -22,7 +22,7 @@ if (!isset($_SESSION['id_admin'])) {
     <div class="container mt-5">
         <div class="card shadow-lg">
             <div class="card-header bg-primary text-white text-center">
-                <h2>Tambah Struktur Organisasi</h2>
+                <h2>Tambah Struktur</h2>
             </div>
             <div class="card-body">
                 <form action="proses_struktur.php" method="POST" enctype="multipart/form-data">
