@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="error"><?= htmlspecialchars($error); ?></p>
             <?php endif; ?>
             <button type="submit" class="login-btn">Login</button>
-            <a href="../index_admin.php?page=home"><button type="button" class="back-btn">Back</button></a>
+            <a href="../index.php"><button type="button" class="back-btn">Back</button></a>
         </form>
 
 

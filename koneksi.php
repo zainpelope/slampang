@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "root";
-$database = "ahp";
+$database = "web_desa";
 
 
 $conn = new mysqli($host, $username, $password, $database);
