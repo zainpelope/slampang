@@ -16,6 +16,7 @@ $jumlah_baru = $data['jumlah_baru'];
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="index_admin.php?admin=home_admin" class="active">Home</a></li>
+                <li><a href="index_admin.php?page=sejarah">Sejarah</a></li>
                 <li><a href="index_admin.php?page=galery">Galery</a></li>
                 <li><a href="index_admin.php?page=struktur">Struktur</a></li>
                 <li><a href="index_admin.php?page=berita">Berita</a></li>

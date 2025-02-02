@@ -41,3 +41,9 @@ CREATE TABLE IF NOT EXISTS struktur (
   id_admin INT NOT NULL,
   FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
+
+CREATE TABLE sejarah ( 
+  id_sejarah INT AUTO_INCREMENT PRIMARY KEY, 
+  gambar VARCHAR(255), 
+  keterangan TEXT NOT NULL 
+  );
