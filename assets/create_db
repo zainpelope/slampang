@@ -55,3 +55,21 @@ CREATE TABLE misi (
     id INT AUTO_INCREMENT PRIMARY KEY,
     isi TEXT NOT NULL
 );
+
+CREATE TABLE pengumuman (
+    id_pengumuman INT PRIMARY KEY AUTO_INCREMENT,
+    judul VARCHAR(255),
+    keterangan TEXT,
+    tanggal DATE,
+);
+
+
+CREATE TABLE kegiatan (
+    id_kegiatan INT PRIMARY KEY AUTO_INCREMENT,
+    nama_kegiatan VARCHAR(255),
+    keterangan TEXT,
+    tanggal_mulai DATE,
+    tanggal_selesai DATE,
+    lokasi VARCHAR(255),
+    gambar VARCHAR(255)
+);
