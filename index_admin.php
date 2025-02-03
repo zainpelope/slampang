@@ -37,7 +37,7 @@
             <?php
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
-                $allowed_admin = ['home_admin','sejarah', 'galery', 'struktur', 'berita', 'masuk_masuk'];
+                $allowed_admin = ['home_admin','visi-misi','kegiatan','pengumuan','sejarah', 'galery', 'struktur', 'berita', 'masuk_masuk'];
                 if (in_array($page, $allowed_admin)) {
                     include 'admin/' . $page . '.php';
                 } else {

@@ -47,3 +47,11 @@ CREATE TABLE sejarah (
   gambar VARCHAR(255), 
   keterangan TEXT NOT NULL 
   );
+  CREATE TABLE visi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    isi TEXT NOT NULL
+);
+CREATE TABLE misi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    isi TEXT NOT NULL
+);

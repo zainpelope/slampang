@@ -1,26 +1,39 @@
-<main class="main">
-    <!-- Hero Title -->
-    <div class="page-title dark-background">
-        <!-- <div class="container position-relative">
-            <h1>Visi - Misi</h1>
-            <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam molestias.</p>
-        </div> -->
-    </div>
+<?php
+include('koneksi.php');
 
+
+$visi_query = "SELECT isi FROM visi";
+$visi_result = $conn->query($visi_query);
+$visi_text = "";
+while ($row = $visi_result->fetch_assoc()) {
+    $visi_text .= "<p>" . htmlspecialchars($row['isi']) . "</p>"; 
+}
+
+
+$misi_query = "SELECT isi FROM misi";
+$misi_result = $conn->query($misi_query);
+$misi = [];
+while ($row = $misi_result->fetch_assoc()) {
+    $misi[] = $row['isi'];
+}
+?>
+<main class="main">
+    <div class="page-title dark-background"></div>
     <div class="container my-5" data-aos="fade-up" data-aos-delay="200">
-        <!-- Profil Section -->
         <section id="visimisi" class="vision-mission mt-5">
             <div class="row">
                 <div class="col-md-6">
                     <h3>VISI</h3>
-                    <p>Terciptanya tenaga kerja yang terampil, ahli, produktif dan kompeten melalui pelatihan kerja yang mendukung perluasan kesempatan kerja dan lapangan kerja, peningkatan produktifitas, memenuhi kebutuhan masyarakat, mendorong pertumbuhan usaha kecil dan menengah dan perekonomian daerah/nasional.</p>
+                    <?php echo $visi_text; ?> 
                 </div>
                 <div class="col-md-6">
                     <h3>MISI</h3>
                     <ul>
-                        <li>Meningkatkan kualitas dan kompetensi tenaga kerja melalui berbagai jenis pelatihan keterampilan dan keahlian...</li>
-                        <li>Meningkatkan kualitas dan kuantitas tenaga kerja melalui pelatihan kerja dalam rangka mengurangi pengangguran...</li>
-                        <li>Menyelenggarakan pelatihan yang berbasis kompetensi...</li>
+                        <?php
+                        foreach ($misi as $misi_item) {
+                            echo '<li>' . htmlspecialchars($misi_item) . '</li>';
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -28,8 +41,5 @@
     </div>
 </main>
 <?php include('footer.html'); ?>
-<!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<!-- Preloader -->
 <div id="preloader"></div>
