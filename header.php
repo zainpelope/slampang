@@ -15,7 +15,12 @@
                     </ul>
                 </li>
 
-                <li><a href="index.php?page=berita">Berita</a></li>
+                <li class="dropdown"><a href=""><span>Berita</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                        <li><a href="index_admin.php?page=kegiatan">Kegiatan</a></li>                
+                        <li><a href="index_admin.php?page=pengumuman">Pengumuman</a></li>
+                    </ul>
+                </li>
                 <li><a href="index.php?page=kontak">Kontak</a></li>
                 <li><a href="admin/login.php">Login</a></li>
             </ul>
