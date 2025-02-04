@@ -1,16 +1,17 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT * FROM galery";
-$result = $conn->query($sql);
+$sql_potensi = "SELECT * FROM potensi_desa";
+$result_potensi = $conn->query($sql_potensi);
 
+$sql_galery = "SELECT * FROM galery";
+$result_galery = $conn->query($sql_galery);
 ?>
+
 <main class="main">
 
-  <!-- Hero Section -->
   <section id="hero" class="hero section dark-background">
     <div id="hero-carousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
-      <!-- Slide 1 -->
       <div class="carousel-item active">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Selamat Datang<br>di Desa Larangan Slampar</h2>
@@ -18,7 +19,6 @@ $result = $conn->query($sql);
           <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
         </div>
       </div>
-      <!-- Slide 2 -->
       <div class="carousel-item">
         <div class="carousel-container">
           <h2 class="animate__animated animate__fadeInDown">Desa Larangan Slampar</h2>
@@ -58,21 +58,26 @@ $result = $conn->query($sql);
     </svg>
 
   </section>
-
-  <!-- Potensi Section -->
   <section id="features-2" class="features section features-2">
-
-    <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
-      <h2>Potensi Desa</h2>
-      <p>Dari segi potensi alam, Desa Larangan Slampar memiliki tanah yang subur, sehingga mendukung aktivitas pertanian seperti penanaman padi, jagung, dan kacang-kacangan. Selain itu, lokasinya yang dekat dengan wilayah pesisir memberikan peluang untuk pengembangan sektor perikanan tangkap maupun budidaya. Keindahan alam di sekitar desa ini juga memiliki potensi untuk dikembangkan menjadi destinasi ekowisata, seperti kebun edukasi atau area konservasi yang dapat menarik wisatawan.</p>
-    </div><!-- End Section Title -->
 
+
+      <h2>
+        Potensi Desa
+      </h2>
+
+
+
+      <?php
+      $row = $result_potensi->fetch_assoc();
+      if ($row) {
+      ?>
+        <p><?php echo $row['keterangan']; ?></p>
+    </div>
     <div class="container">
-
       <div class="row gy-4 justify-content-between">
         <div class="features-image col-lg-4 d-flex align-items-center" data-aos="fade-up">
-          <img src="assets/img/potensi.jpg" class="img-fluid" alt="">
+          <img src="uploads/<?php echo $row['gambar']; ?>" class="img-fluid" alt="Potensi Desa">
         </div>
         <div class="col-lg-7 d-flex flex-column justify-content-center">
 
@@ -92,7 +97,6 @@ $result = $conn->query($sql);
               <p>Sumber daya desa di Larangan Slampar juga sangat mendukung pembangunan, baik dari segi tenaga kerja lokal yang sebagian besar memiliki keterampilan di sektor agraris, kerajinan, maupun perdagangan, maupun lembaga-lembaga desa seperti Badan Usaha Milik Desa (BUMDes) yang dapat membantu mengelola potensi desa secara optimal.</p>
             </div>
           </div>
-
           <div class="features-item d-flex mt-5" data-aos="fade-up" data-aos-delay="400">
             <i class="bi bi-broadcast flex-shrink-0"></i>
             <div>
@@ -100,36 +104,33 @@ $result = $conn->query($sql);
               <p>Desa Larangan Slampar, yang terletak di Kecamatan Tlanakan, Kabupaten Pamekasan, Jawa Timur, memiliki potensi besar dalam pengembangan Usaha Mikro, Kecil, dan Menengah (UMKM), potensi alam, serta sumber daya desa yang melimpah.</p>
             </div>
           </div>
-
         </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if ($row = $result_potensi->fetch_assoc()) {
+        echo "<p>" . $row['keterangan'] . "</p>";
+      }
+      ?>
       </div>
 
+
+    </div>
     </div>
 
+    </div>
   </section>
 
-  <!-- Gallery Section -->
   <section id="gallery" class="gallery section">
-
-    <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
       <h2>Gallery</h2>
       <p>Desa Larangan Slampar memiliki galeri visual yang menampilkan keindahan alam, kegiatan masyarakat, serta produk lokal unggulan melalui kumpulan gambar yang dapat menggambarkan identitas dan potensi desa secara visual.</p>
-    </div><!-- End Section Title -->
-
+    </div>
     <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
       <div class="row g-0">
-        <?php while ($row = $result->fetch_assoc()) { ?>
-          <style>
-            .gallery-item img {
-              width: 200%;
-              height: 200px;
-              object-fit: cover;
-              border-radius: 8px;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-          </style>
+        <?php while ($row = $result_galery->fetch_assoc()) { ?>
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
               <a href="admin/uploads/<?= $row['gambar'] ?>" class="glightbox" data-gallery="images-gallery">
@@ -138,21 +139,11 @@ $result = $conn->query($sql);
             </div>
           </div>
         <?php } ?>
-
-
       </div>
-
     </div>
-
   </section>
 
-
 </main>
-
 <?php include('footer.html'); ?>
-
-<!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<!-- Preloader -->
 <div id="preloader"></div>

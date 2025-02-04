@@ -73,3 +73,17 @@ CREATE TABLE kegiatan (
     lokasi VARCHAR(255),
     gambar VARCHAR(255)
 );
+
+
+CREATE TABLE umkm_desa (
+    id_umkm INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    keterangan TEXT NOT NULL
+);
+
+
+CREATE TABLE potensi_desa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    gambar VARCHAR(255) NOT NULL,
+    keterangan TEXT
+);
