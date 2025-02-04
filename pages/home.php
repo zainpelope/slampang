@@ -80,28 +80,29 @@ $result_galery = $conn->query($sql_galery);
           <img src="uploads/<?php echo $row['gambar']; ?>" class="img-fluid" alt="Potensi Desa">
         </div>
         <div class="col-lg-7 d-flex flex-column justify-content-center">
-
           <div class="features-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <i class="bi bi-globe-americas flex-shrink-0"></i>
-            <div>
-              <h4>Potensi Alam</h4>
-              <p>
-                Potensi alam Desa Larangan Slampar juga mencakup ketersediaan sumber daya air yang mendukung irigasi pertanian, lahan hijau yang cocok untuk pengembangan hortikultura, serta keanekaragaman hayati yang dapat dimanfaatkan untuk program konservasi dan pemberdayaan ekonomi berbasis lingkungan.</p>
-            </div>
-          </div>
+            <div class="row">
+              <?php
+              $sql = "SELECT * FROM umkm_desa";
+              $result = $conn->query($sql);
 
-          <div class="features-item d-flex mt-5" data-aos="fade-up" data-aos-delay="300">
-            <i class="bi bi-tree-fill flex-shrink-0"></i>
-            <div>
-              <h4>Sumber Daya Desa</h4>
-              <p>Sumber daya desa di Larangan Slampar juga sangat mendukung pembangunan, baik dari segi tenaga kerja lokal yang sebagian besar memiliki keterampilan di sektor agraris, kerajinan, maupun perdagangan, maupun lembaga-lembaga desa seperti Badan Usaha Milik Desa (BUMDes) yang dapat membantu mengelola potensi desa secara optimal.</p>
-            </div>
-          </div>
-          <div class="features-item d-flex mt-5" data-aos="fade-up" data-aos-delay="400">
-            <i class="bi bi-broadcast flex-shrink-0"></i>
-            <div>
-              <h4>Usaha Mikro, Kecil, Menengan (UMKM)</h4>
-              <p>Desa Larangan Slampar, yang terletak di Kecamatan Tlanakan, Kabupaten Pamekasan, Jawa Timur, memiliki potensi besar dalam pengembangan Usaha Mikro, Kecil, dan Menengah (UMKM), potensi alam, serta sumber daya desa yang melimpah.</p>
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<div class='col-lg-7'>";
+                  echo "<i class='bi bi-store flex-shrink-0'></i>";
+                  echo "<div class='info-umkm flex-grow-1'>";
+                  echo "<h4>" . $row["title"] . "</h4>";
+                  echo "<p>" . $row["keterangan"] . "</p>";
+                  echo "</div>";
+                  echo "<div class='action-buttons ml-auto'>";
+
+                  echo "</div>";
+                  echo "</div>";
+                }
+              } else {
+                echo "<div class='col-lg-12'><p>Tidak ada data UMKM.</p></div>";
+              }
+              ?>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
     $sql = "DELETE FROM umkm_desa WHERE id_umkm = '$id'";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: index_admin.php?admin=home_admin"); // Redirect ke halaman utama setelah data dihapus
+        header("Location: index_admin.php?admin=home_admin");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
