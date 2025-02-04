@@ -81,28 +81,30 @@ $result_potensi = $conn->query($sql_potensi);
           <img src="uploads/<?php echo $row['gambar']; ?>" class="img-fluid" alt="Potensi Desa">
         </div>
         <div class="col-lg-7 d-flex flex-column justify-content-center">
-
           <div class="features-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <i class="bi bi-globe-americas flex-shrink-0"></i>
-            <div>
-              <h4>Potensi Alam</h4>
-              <p>
-                Potensi alam Desa Larangan Slampar juga mencakup ketersediaan sumber daya air yang mendukung irigasi pertanian, lahan hijau yang cocok untuk pengembangan hortikultura, serta keanekaragaman hayati yang dapat dimanfaatkan untuk program konservasi dan pemberdayaan ekonomi berbasis lingkungan.</p>
-            </div>
-          </div>
+            <div class="row">
+              <?php
+              $sql = "SELECT * FROM umkm_desa";
+              $result = $conn->query($sql);
 
-          <div class="features-item d-flex mt-5" data-aos="fade-up" data-aos-delay="300">
-            <i class="bi bi-tree-fill flex-shrink-0"></i>
-            <div>
-              <h4>Sumber Daya Desa</h4>
-              <p>Sumber daya desa di Larangan Slampar juga sangat mendukung pembangunan, baik dari segi tenaga kerja lokal yang sebagian besar memiliki keterampilan di sektor agraris, kerajinan, maupun perdagangan, maupun lembaga-lembaga desa seperti Badan Usaha Milik Desa (BUMDes) yang dapat membantu mengelola potensi desa secara optimal.</p>
-            </div>
-          </div>
-          <div class="features-item d-flex mt-5" data-aos="fade-up" data-aos-delay="400">
-            <i class="bi bi-broadcast flex-shrink-0"></i>
-            <div>
-              <h4>Usaha Mikro, Kecil, Menengan (UMKM)</h4>
-              <p>Desa Larangan Slampar, yang terletak di Kecamatan Tlanakan, Kabupaten Pamekasan, Jawa Timur, memiliki potensi besar dalam pengembangan Usaha Mikro, Kecil, dan Menengah (UMKM), potensi alam, serta sumber daya desa yang melimpah.</p>
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<div class='col-lg-7'>"; // Tambahkan col-lg-7 di sini
+                  echo "<i class='bi bi-store flex-shrink-0'></i>";
+                  echo "<div class='info-umkm flex-grow-1'>";
+                  echo "<h4><a href='tambah_umkm.php?id=" . $row["id_umkm"] . "' style='color: black;'>" . $row["title"] . "</a></h4>";
+                  echo "<p>" . $row["keterangan"] . "</p>";
+                  echo "</div>";
+                  echo "<div class='action-buttons ml-auto'>";
+                  echo "<a href='edit_umkm.php?id=" . $row["id_umkm"] . "' class='text-warning small' style='font-size: 12px;'>Edit</a> | ";
+                  echo "<a href='#' onclick='konfirmasiHapus(" . $row["id_umkm"] . ")' class='text-danger small' style='font-size: 12px;'>Hapus</a>";
+                  echo "</div>";
+                  echo "</div>";
+                }
+              } else {
+                echo "<div class='col-lg-12'><p>Tidak ada data UMKM.</p></div>";
+              }
+              ?>
             </div>
           </div>
         </div>
@@ -127,6 +129,18 @@ $result_potensi = $conn->query($sql_potensi);
 
 
 </main>
+<script>
+  function konfirmasiHapus(id_umkm) {
+    var konfirmasi = confirm("Apakah Anda yakin ingin menghapus data UMKM ini?");
+    if (konfirmasi) {
+      // Jika pengguna menekan OK, maka lanjutkan ke proses penghapusan
+      window.location.href = "hapus_umkm.php?id=" + id_umkm;
+    } else {
+      // Jika pengguna menekan Batal, maka batalkan proses penghapusan
+      return false;
+    }
+  }
+</script>
 <?php include('footer.html'); ?>
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <div id="preloader"></div>
