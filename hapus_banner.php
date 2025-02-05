@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $sql = "DELETE FROM banner WHERE id_banner=$id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: banner.php");
+        header("Location: index_admin.php?admin=home_admin");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

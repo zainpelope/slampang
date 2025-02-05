@@ -1,6 +1,7 @@
 <?php
 include 'koneksi.php';
-
+$sql_galery = "SELECT * FROM galery";
+$result_galery = $conn->query($sql_galery);
 $sql_potensi = "SELECT * FROM potensi_desa";
 $result_potensi = $conn->query($sql_potensi);
 
@@ -37,7 +38,7 @@ $result_banner = $conn->query($sql_banner); ?>
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(27, 25, 25, 0.5);
+    background-color: rgba(22, 21, 21, 0.5);
     color: white;
     text-align: center;
   }
@@ -75,7 +76,7 @@ $result_banner = $conn->query($sql_banner); ?>
                 <div class="edit-delete-buttons">
                   <a href="edit_banner.php?id=<?php echo $row_banner['id_banner']; ?>" style="color: yellow;">Edit</a>
                   <span style="color: white;">&nbsp;|&nbsp;</span>
-                  <a href="" onclick="konfirmasiHapus(<?php echo $row_banner['id_banner']; ?>)" style="color: red; text-decoration: none;">Hapus</a>
+                  <a href="#" onclick="return confirm('Apakah Anda yakin ingin menghapus banner ini?') ? window.location.href = 'hapus_banner.php?id=<?php echo $row_banner['id_banner']; ?>' : false;" style="color: red; text-decoration: none;">Hapus</a>
                 </div>
                 <a href="tambah_banner.php" class="btn-get-started animate__animated animate__fadeInUp scrollto">Add More</a>
               </div>
@@ -138,7 +139,7 @@ $result_banner = $conn->query($sql_banner); ?>
 
               if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                  echo "<div class='col-lg-7'>"; // Tambahkan col-lg-7 di sini
+                  echo "<div class='col-lg-7'>";
                   echo "<i class='bi bi-store flex-shrink-0'></i>";
                   echo "<div class='info-umkm flex-grow-1'>";
                   echo "<h4><a href='tambah_umkm.php?id=" . $row["id_umkm"] . "' style='color: black;'>" . $row["title"] . "</a></h4>";
@@ -175,15 +176,8 @@ $result_banner = $conn->query($sql_banner); ?>
     </div>
   </section>
 
+
 </main>
-<script>
-  function konfirmasiHapus(id_banner) {
-    var konfirmasi = confirm("Apakah Anda yakin ingin menghapus banner ini?");
-    if (konfirmasi) {
-      window.location.href = "hapus_banner.php?id=" + id_banner;
-    }
-  }
-</script>
 <script>
   function konfirmasiHapus(id_umkm) {
     var konfirmasi = confirm("Apakah Anda yakin ingin menghapus data UMKM ini?");
@@ -194,6 +188,7 @@ $result_banner = $conn->query($sql_banner); ?>
     }
   }
 </script>
+
 <?php include('footer.html'); ?>
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <div id="preloader"></div>
