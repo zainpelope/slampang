@@ -7,7 +7,21 @@ $result_potensi = $conn->query($sql_potensi);
 $sql_galery = "SELECT * FROM galery";
 $result_galery = $conn->query($sql_galery);
 ?>
-
+<style>
+  .hero {
+    width: 100%;
+    position: relative;
+    background: url("assets/img/desa-potensi.jpg") center center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    padding: 0;
+  }
+</style>
 <main class="main">
 
   <section id="hero" class="hero section dark-background">

@@ -87,3 +87,11 @@ CREATE TABLE potensi_desa (
     gambar VARCHAR(255) NOT NULL,
     keterangan TEXT
 );
+
+
+CREATE TABLE banner (
+    id_banner INT AUTO_INCREMENT PRIMARY KEY,
+    gambar VARCHAR(255) NOT NULL,
+    judul VARCHAR(255) NOT NULL,
+    keterangan TEXT
+);

@@ -24,7 +24,7 @@
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Style CSS File -->
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/lagi.css" rel="stylesheet">
 
 </head>
 
@@ -37,7 +37,7 @@
             <?php
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
-                $allowed_admin = ['home_admin','visi-misi','kegiatan','pengumuman','sejarah', 'galery', 'struktur', 'berita', 'masuk_masuk'];
+                $allowed_admin = ['home_admin', 'visi-misi', 'kegiatan', 'pengumuman', 'sejarah', 'galery', 'struktur', 'berita', 'masuk_masuk'];
                 if (in_array($page, $allowed_admin)) {
                     include 'admin/' . $page . '.php';
                 } else {

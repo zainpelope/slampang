@@ -24,7 +24,7 @@
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Style CSS File -->
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/lagi.css" rel="stylesheet">
     <style>
         .section-title {
             margin-bottom: 30px;
@@ -101,7 +101,7 @@
             <?php
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
-                $allowed_pages = ['home', 'sejarah','kegiatan','pengumuman', 'struktur-desa', 'visi-misi', 'kontak', 'berita'];
+                $allowed_pages = ['home', 'sejarah', 'kegiatan', 'pengumuman', 'struktur-desa', 'visi-misi', 'kontak', 'berita'];
                 if (in_array($page, $allowed_pages)) {
                     include 'pages/' . $page . '.php';
                 } else {
