@@ -1,8 +1,15 @@
 <?php
 include '../koneksi.php';
+session_start();
 
+if (!isset($_SESSION['id_admin'])) {
+    die("Anda harus login sebagai admin untuk mengakses halaman ini.");
+}
 
-function clean_input($data) {
+$id_admin = $_SESSION['id_admin'];
+
+function clean_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -10,9 +17,8 @@ function clean_input($data) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $keterangan = clean_input($_POST['keterangan']); 
+    $keterangan = clean_input($_POST['keterangan']);
 
- 
     $target_dir = "../uploads/";
     $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -23,18 +29,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $allowed_types = array("jpg", "jpeg", "png", "gif");
-    if(!in_array($imageFileType, $allowed_types)) {
+    if (!in_array($imageFileType, $allowed_types)) {
         $error_message = "Maaf, hanya file JPG, JPEG, PNG & GIF yang diperbolehkan.";
     }
-
 
     if (!isset($error_message)) {
         if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
             $gambar = basename($_FILES["gambar"]["name"]);
 
-            $sql = "REPLACE INTO potensi_desa (id, gambar, keterangan) VALUES (1, '$gambar', '$keterangan')";
+            $sql = "REPLACE INTO potensi_desa (id, gambar, keterangan, id_admin) VALUES (1, '$gambar', '$keterangan', '$id_admin')";
             if (mysqli_query($conn, $sql)) {
-       
                 header("Location: ../index_admin.php?admin=home_admin&status=success");
                 exit();
             } else {
@@ -47,14 +51,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Potensi Desa</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body class="container mt-5">
     <h1>Update Potensi Desa</h1>
 
@@ -82,4 +89,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

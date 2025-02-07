@@ -1,11 +1,18 @@
 <?php
 include 'koneksi.php';
+session_start();
+
+if (!isset($_SESSION['id_admin'])) {
+    die("Anda harus login sebagai admin untuk mengakses halaman ini.");
+}
+
+$id_admin = $_SESSION['id_admin'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $keterangan = $_POST['keterangan'];
 
-    $sql = "INSERT INTO umkm_desa (title, keterangan) VALUES ('$title', '$keterangan')";
+    $sql = "INSERT INTO umkm_desa (title, keterangan, id_admin) VALUES ('$title', '$keterangan', '$id_admin')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: index_admin.php?admin=home_admin");
@@ -15,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>

@@ -45,15 +45,21 @@ CREATE TABLE IF NOT EXISTS struktur (
 CREATE TABLE sejarah ( 
   id_sejarah INT AUTO_INCREMENT PRIMARY KEY, 
   gambar VARCHAR(255), 
-  keterangan TEXT NOT NULL 
+  keterangan TEXT NOT NULL ,
+    id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
   );
   CREATE TABLE visi (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    isi TEXT NOT NULL
+    isi TEXT NOT NULL,
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 CREATE TABLE misi (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    isi TEXT NOT NULL
+    isi TEXT NOT NULL,
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
 CREATE TABLE pengumuman (
@@ -61,6 +67,8 @@ CREATE TABLE pengumuman (
     judul VARCHAR(255),
     keterangan TEXT,
     tanggal DATE,
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
 
@@ -71,21 +79,27 @@ CREATE TABLE kegiatan (
     tanggal_mulai DATE,
     tanggal_selesai DATE,
     lokasi VARCHAR(255),
-    gambar VARCHAR(255)
+    gambar VARCHAR(255),
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
 
 CREATE TABLE umkm_desa (
     id_umkm INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    keterangan TEXT NOT NULL
+    keterangan TEXT NOT NULL,
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
 
 CREATE TABLE potensi_desa (
     id INT AUTO_INCREMENT PRIMARY KEY,
     gambar VARCHAR(255) NOT NULL,
-    keterangan TEXT
+    keterangan TEXT,
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
 
@@ -93,5 +107,7 @@ CREATE TABLE banner (
     id_banner INT AUTO_INCREMENT PRIMARY KEY,
     gambar VARCHAR(255) NOT NULL,
     judul VARCHAR(255) NOT NULL,
-    keterangan TEXT
+    keterangan TEXT,
+      id_admin INT NOT NULL,
+  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );

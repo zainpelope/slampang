@@ -1,15 +1,24 @@
 <?php
 include 'koneksi.php';
+session_start();
+
+if (!isset($_SESSION['id_admin'])) {
+    die("Anda harus login sebagai admin untuk mengakses halaman ini.");
+}
+
+$id_admin = $_SESSION['id_admin'];
 
 if (isset($_POST['submit'])) {
     $judul = $_POST['judul'];
     $keterangan = $_POST['keterangan'];
     $tanggal = $_POST['tanggal'];
 
-    $sql = "INSERT INTO pengumuman (judul, keterangan, tanggal) VALUES ('$judul', '$keterangan', '$tanggal')";
+    $sql = "INSERT INTO pengumuman (judul, keterangan, tanggal, id_admin) 
+            VALUES ('$judul', '$keterangan', '$tanggal', '$id_admin')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: index_admin.php?page=pengumuman");
+        exit;
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -20,6 +29,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Tambah Pengumuman</title>
     <style>
@@ -114,6 +124,7 @@ $conn->close();
         }
     </script>
 </head>
+
 <body onload="setDefaultDate()">
     <div class="container">
         <h1>Tambah Pengumuman</h1>
@@ -134,4 +145,5 @@ $conn->close();
         </form>
     </div>
 </body>
+
 </html>

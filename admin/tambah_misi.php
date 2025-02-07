@@ -1,10 +1,12 @@
 <?php
 include('../koneksi.php');
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $misi = $_POST['misi'];
+    $id_admin = $_SESSION['id_admin'];
 
-    $query = "INSERT INTO misi (isi) VALUES ('$misi')";
+    $query = "INSERT INTO misi (id_admin, isi) VALUES ('$id_admin', '$misi')";
     if ($conn->query($query)) {
         echo "<script>alert('Misi berhasil ditambahkan!'); window.location.href='../index_admin.php?page=visi-misi';</script>";
     } else {
@@ -15,17 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Misi</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container my-5">
         <h3 class="text-center mb-4">Tambah Misi</h3>
-        
         <div class="card p-4 shadow-sm">
             <form action="" method="POST">
                 <div class="mb-3">
@@ -39,9 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </div>
-
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb+4gTxonb3c4K57v5Q9zKM3GO9rHInJi6+Ji6elGpo4L88gQ" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-kenU1KFdBIe4zZZe4D2rP6pPToU2Jl5j6gDsxmnfEX7FQy5Yc7t7TjmjOkI0y9H5" crossorigin="anonymous"></script>
 </body>
+
 </html>

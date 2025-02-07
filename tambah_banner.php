@@ -1,12 +1,18 @@
 <?php
 include 'koneksi.php';
+session_start();
+
+if (!isset($_SESSION['id_admin'])) {
+    die("Anda harus login sebagai admin untuk mengakses halaman ini.");
+}
+
+$id_admin = $_SESSION['id_admin'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
 
     $check = getimagesize($_FILES["gambar"]["tmp_name"]);
     if ($check !== false) {
@@ -21,15 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $uploadOk = 0;
     }
 
-
-    if (
-        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
-    ) {
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
         echo "Hanya file JPG, PNG, JPEG, dan GIF yang diizinkan.";
         $uploadOk = 0;
     }
-
 
     if ($uploadOk == 0) {
         echo "Maaf, file tidak berhasil diupload.";
@@ -39,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $judul = $_POST['judul'];
             $keterangan = $_POST['keterangan'];
 
-            $sql = "INSERT INTO banner (gambar, judul, keterangan) VALUES ('$gambar', '$judul', '$keterangan')";
+            $sql = "INSERT INTO banner (gambar, judul, keterangan, id_admin) VALUES ('$gambar', '$judul', '$keterangan', '$id_admin')";
 
             if ($conn->query($sql) === TRUE) {
                 header("Location: index_admin.php?admin=home_admin");
@@ -53,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">

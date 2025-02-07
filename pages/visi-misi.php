@@ -6,7 +6,7 @@ $visi_query = "SELECT isi FROM visi";
 $visi_result = $conn->query($visi_query);
 $visi_text = "";
 while ($row = $visi_result->fetch_assoc()) {
-    $visi_text .= "<p>" . htmlspecialchars($row['isi']) . "</p>"; 
+    $visi_text .= "<p>" . htmlspecialchars($row['isi']) . "</p>";
 }
 
 
@@ -24,7 +24,7 @@ while ($row = $misi_result->fetch_assoc()) {
             <div class="row">
                 <div class="col-md-6">
                     <h3>VISI</h3>
-                    <?php echo $visi_text; ?> 
+                    <?php echo $visi_text; ?>
                 </div>
                 <div class="col-md-6">
                     <h3>MISI</h3>

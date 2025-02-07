@@ -75,7 +75,7 @@ $result_banner = $conn->query($sql_banner); ?>
                 <p class="animate__animated animate__fadeInUp"><?php echo $row_banner['keterangan']; ?></p>
                 <div class="edit-delete-buttons">
                 </div>
-                <a href="#" class="btn-get-started animate__animated animate__fadeInUp scrollto">Add More</a>
+                <a href="#" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
               </div>
             </div>
           <?php

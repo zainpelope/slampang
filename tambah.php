@@ -1,5 +1,12 @@
 <?php
 include 'koneksi.php';
+session_start();
+
+if (!isset($_SESSION['id_admin'])) {
+    die("Anda harus login sebagai admin untuk mengakses halaman ini.");
+}
+
+$id_admin = $_SESSION['id_admin'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama_kegiatan = $_POST['nama_kegiatan'];
@@ -7,28 +14,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tanggal_mulai = $_POST['tanggal_mulai'];
     $tanggal_selesai = $_POST['tanggal_selesai'];
     $lokasi = $_POST['lokasi'];
+
     $gambar = $_FILES['gambar']['name'];
     $target_dir = "admin/uploads/";
-    $target_file = $target_dir . basename($_FILES['gambar']['name']);
-    $uploadOk = 1;
+
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0775, true);
+    }
+
+    $target_file = $target_dir . basename($gambar);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    if ($uploadOk == 1) {
-        if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
-            $sql = "INSERT INTO kegiatan (nama_kegiatan, keterangan, tanggal_mulai, tanggal_selesai, lokasi, gambar) 
-                    VALUES ('$nama_kegiatan', '$keterangan', '$tanggal_mulai', '$tanggal_selesai', '$lokasi', '$gambar')";
+    if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
+        $sql = "INSERT INTO kegiatan (nama_kegiatan, keterangan, tanggal_mulai, tanggal_selesai, lokasi, gambar, id_admin) 
+                VALUES ('$nama_kegiatan', '$keterangan', '$tanggal_mulai', '$tanggal_selesai', '$lokasi', '$gambar', '$id_admin')";
 
-            if ($conn->query($sql) === TRUE) {
-                header("Location: index_admin.php?page=kegiatan");
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
+        if ($conn->query($sql) === TRUE) {
+            header("Location: index_admin.php?page=kegiatan");
+            exit;
         } else {
-            echo "Maaf, terjadi kesalahan saat mengupload gambar.";
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
+    } else {
+        echo "Maaf, terjadi kesalahan saat mengupload gambar.";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
