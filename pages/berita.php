@@ -1,9 +1,26 @@
 <?php
 include 'koneksi.php';
+
+
+$per_page = 8;
+$halaman = isset($_GET['halaman']) && is_numeric($_GET['halaman']) ? $_GET['halaman'] : 1;
+if ($halaman < 1) {
+    $halaman = 1;
+}
+$start_from = ($halaman - 1) * $per_page;
+
+$sql_count = "SELECT COUNT(*) AS total FROM berita";
+$result_count = $conn->query($sql_count);
+$total_records = $result_count->fetch_assoc()['total'];
+$total_pages = ceil($total_records / $per_page);
+
+$sql = "SELECT * FROM berita LIMIT $start_from, $per_page";
+$result = $conn->query($sql);
+
 ?>
+
 <main class="main">
-    <div class="page-title dark-background">
-    </div>
+    <div class="page-title dark-background"></div>
     <div class="container my-5" data-aos="fade-up" data-aos-delay="200">
         <section id="berita" class="berita section">
             <div class="container section-title" data-aos="fade-up">
@@ -13,15 +30,12 @@ include 'koneksi.php';
             <div class="container">
                 <div class="row">
                     <?php
-                    $sql = "SELECT * FROM berita";
-                    $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                     ?>
                         <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
                             <div class="member">
                                 <a href="pages/detail_berita.php?id=<?= $row['id_berita']; ?>">
                                     <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid" alt="" style="width: 200px; height: 200px; object-fit: cover;">
-
                                     <div class="member-content">
                                         <h5 class="mb-1"><?= htmlspecialchars($row['judul']) ?></h5>
                                         <p class="text-muted"><?= htmlspecialchars($row['tanggal']) ?></p>
@@ -33,10 +47,37 @@ include 'koneksi.php';
                                 </a>
                             </div>
                         </div>
-
-
-                    <?php } ?>
+                    <?php
+                    }
+                    ?>
                 </div>
+
+                <nav aria-label="Page navigation example" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <?php if ($halaman <= 1) {
+                                                    echo 'disabled';
+                                                } ?>">
+                            <a class="page-link" href="<?php if ($halaman > 1) {
+                                                            echo '?page=berita&halaman=' . ($halaman - 1);
+                                                        } ?>">Previous</a>
+                        </li>
+                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                            <li class="page-item <?php if ($i == $halaman) {
+                                                        echo 'active';
+                                                    } ?>">
+                                <a class="page-link" href="?page=berita&halaman=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
+                        <li class="page-item <?php if ($halaman >= $total_pages) {
+                                                    echo 'disabled';
+                                                } ?>">
+                            <a class="page-link" href="<?php if ($halaman < $total_pages) {
+                                                            echo '?page=berita&halaman=' . ($halaman + 1);
+                                                        } ?>">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
         </section>
     </div>

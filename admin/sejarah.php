@@ -1,17 +1,23 @@
 <?php
 include('koneksi.php');
 
-
-$query = "SELECT * FROM sejarah ORDER BY id_sejarah DESC";
+$per_page = 5;
+$current_page = isset($_GET['page']) ? $_GET['page'] : 'sejarah';
+$halaman = isset($_GET['halaman']) && is_numeric($_GET['halaman']) ? $_GET['halaman'] : 1;
+if ($halaman < 1) {
+    $halaman = 1;
+}
+$start_from = ($halaman - 1) * $per_page;
+$query = "SELECT * FROM sejarah ORDER BY id_sejarah DESC LIMIT $start_from, $per_page";
 $result = $conn->query($query);
+$total_records_query = "SELECT COUNT(*) AS total FROM sejarah";
+$total_records_result = $conn->query($total_records_query);
+$total_records = $total_records_result->fetch_assoc()['total'];
+$total_pages = ceil($total_records / $per_page);
 ?>
-
 <main class="main">
-  
     <div class="page-title dark-background"></div>
-
     <div class="container my-5" data-aos="fade-up" data-aos-delay="200">
-     
         <section id="sejarah" class="profil-section">
             <div class="section-title text-center">
                 <h2>Sejarah</h2>
@@ -19,7 +25,6 @@ $result = $conn->query($query);
 
             <a href="admin/sejarah/tambah_sejarah.php" class="btn btn-primary mb-3">Tambah Sejarah</a>
 
-          
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
@@ -31,9 +36,9 @@ $result = $conn->query($query);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
-                        $no = 1;
-                        while ($row = $result->fetch_assoc()) : 
+                        <?php
+                        $no = $start_from + 1;
+                        while ($row = $result->fetch_assoc()) :
                             $gambar_path = "admin/uploads/" . htmlspecialchars($row['gambar']);
                         ?>
                             <tr>
@@ -56,16 +61,39 @@ $result = $conn->query($query);
                     </tbody>
                 </table>
             </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item <?php if ($halaman <= 1) {
+                                                echo 'disabled';
+                                            } ?>">
+                        <a class="page-link" href="<?php if ($halaman > 1) {
+                                                        echo '?page=' . $current_page . '&halaman=' . ($halaman - 1);
+                                                    } ?>">Previous</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                        <li class="page-item <?php if ($i == $halaman) {
+                                                    echo 'active';
+                                                } ?>">
+                            <a class="page-link" href="?page=<?= $current_page ?>&halaman=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?php if ($halaman >= $total_pages) {
+                                                echo 'disabled';
+                                            } ?>">
+                        <a class="page-link" href="<?php if ($halaman < $total_pages) {
+                                                        echo '?page=' . $current_page . '&halaman=' . ($halaman + 1);
+                                                    } ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
         </section>
     </div>
 </main>
 
 <?php include('footer.html'); ?>
-
-
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
     <i class="bi bi-arrow-up-short"></i>
 </a>
-
-
 <div id="preloader"></div>

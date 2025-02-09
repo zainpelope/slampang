@@ -1,12 +1,27 @@
 <?php
 include 'koneksi.php';
-$sql_galery = "SELECT * FROM galery";
+
+$per_page_galeri = 8;
+$halaman_galeri = isset($_GET['halaman_galeri']) && is_numeric($_GET['halaman_galeri']) ? $_GET['halaman_galeri'] : 1;
+if ($halaman_galeri < 1) {
+  $halaman_galeri = 1;
+}
+$start_from_galeri = ($halaman_galeri - 1) * $per_page_galeri;
+
+$sql_count_galeri = "SELECT COUNT(*) AS total FROM galery";
+$result_count_galeri = $conn->query($sql_count_galeri);
+$total_records_galeri = $result_count_galeri->fetch_assoc()['total'];
+$total_pages_galeri = ceil($total_records_galeri / $per_page_galeri);
+
+$sql_galery = "SELECT * FROM galery LIMIT $start_from_galeri, $per_page_galeri";
 $result_galery = $conn->query($sql_galery);
+
 $sql_potensi = "SELECT * FROM potensi_desa";
 $result_potensi = $conn->query($sql_potensi);
 
 $sql_banner = "SELECT * FROM banner";
-$result_banner = $conn->query($sql_banner); ?>
+$result_banner = $conn->query($sql_banner);
+?>
 
 
 
@@ -174,7 +189,7 @@ $result_banner = $conn->query($sql_banner); ?>
     </div>
     <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
       <div class="row g-0">
-        <?php while ($row = $result_galery->fetch_assoc()) { ?>
+        <?php while ($row = $result_galery->fetch_assoc()) : ?>
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
               <a href="admin/uploads/<?= $row['gambar'] ?>" class="glightbox" data-gallery="images-gallery">
@@ -182,9 +197,35 @@ $result_banner = $conn->query($sql_banner); ?>
               </a>
             </div>
           </div>
-        <?php } ?>
+        <?php endwhile; ?>
       </div>
     </div>
+
+    <nav aria-label="Page navigation example" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <?php if ($halaman_galeri <= 1) {
+                                echo 'disabled';
+                              } ?>">
+          <a class="page-link" href="<?php if ($halaman_galeri > 1) {
+                                        echo '?page=home&halaman_galeri=' . ($halaman_galeri - 1);
+                                      } ?>">Previous</a>
+        </li>
+        <?php for ($i = 1; $i <= $total_pages_galeri; $i++) : ?>
+          <li class="page-item <?php if ($i == $halaman_galeri) {
+                                  echo 'active';
+                                } ?>">
+            <a class="page-link" href="?page=home&halaman_galeri=<?= $i ?>"><?= $i ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="page-item <?php if ($halaman_galeri >= $total_pages_galeri) {
+                                echo 'disabled';
+                              } ?>">
+          <a class="page-link" href="<?php if ($halaman_galeri < $total_pages_galeri) {
+                                        echo '?page=home&halaman_galeri=' . ($halaman_galeri + 1);
+                                      } ?>">Next</a>
+        </li>
+      </ul>
+    </nav>
   </section>
 
 </main>

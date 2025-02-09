@@ -1,7 +1,22 @@
 <?php
 include 'koneksi.php';
 
-$sql = "SELECT * FROM kegiatan";
+
+$per_page = 5;
+$halaman = isset($_GET['halaman']) && is_numeric($_GET['halaman']) ? $_GET['halaman'] : 1;
+if ($halaman < 1) {
+    $halaman = 1;
+}
+$start_from = ($halaman - 1) * $per_page;
+
+
+$sql_count = "SELECT COUNT(*) AS total FROM kegiatan";
+$result_count = $conn->query($sql_count);
+$total_records = $result_count->fetch_assoc()['total'];
+$total_pages = ceil($total_records / $per_page);
+
+
+$sql = "SELECT * FROM kegiatan LIMIT $start_from, $per_page";
 $result = $conn->query($sql);
 ?>
 
@@ -25,39 +40,65 @@ $result = $conn->query($sql);
                 <tbody>
                     <?php
                     if ($result->num_rows > 0) {
-                        $no = 1;
+                        $no = $start_from + 1;
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $no . "</td>";
                             echo "<td><img src='admin/uploads/" . $row['gambar'] . "' width='100'></td>";
                             echo "<td>" . $row['nama_kegiatan'] . "</td>";
-                            
+
                             $keterangan = $row['keterangan'];
-                            $keterangan_pendek = substr($keterangan, 0, 150); // Batasi 150 karakter
+                            $keterangan_pendek = substr($keterangan, 0, 150);
                             echo "<td>" . nl2br($keterangan_pendek);
                             if (strlen($keterangan) > 150) {
                                 echo "... <a href='kegiatan_detail.php?id=" . $row['id_kegiatan'] . "' style='color: blue; font-style: italic;'>Lihat Selengkapnya</a>";
-
                             }
                             echo "</td>";
-                            
+
                             $tanggal_mulai = date("d-m-Y", strtotime($row['tanggal_mulai']));
                             echo "<td>" . $tanggal_mulai . "</td>";
-                            
+
                             $tanggal_selesai = date("d-m-Y", strtotime($row['tanggal_selesai']));
                             echo "<td>" . $tanggal_selesai . "</td>";
-                            
+
                             echo "<td>" . $row['lokasi'] . "</td>";
                             echo "</tr>";
-                            
+
                             $no++;
                         }
                     } else {
-                        echo "<tr><td colspan='8'>Tidak ada data kegiatan.</td></tr>";
+                        echo "<tr><td colspan='7'>Tidak ada data kegiatan.</td></tr>";
                     }
                     ?>
                 </tbody>
             </table>
+
+            <nav aria-label="Page navigation example" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <?php if ($halaman <= 1) {
+                                                echo 'disabled';
+                                            } ?>">
+                        <a class="page-link" href="<?php if ($halaman > 1) {
+                                                        echo '?page=kegiatan&halaman=' . ($halaman - 1);
+                                                    } ?>">Previous</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                        <li class="page-item <?php if ($i == $halaman) {
+                                                    echo 'active';
+                                                } ?>">
+                            <a class="page-link" href="?page=kegiatan&halaman=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?php if ($halaman >= $total_pages) {
+                                                echo 'disabled';
+                                            } ?>">
+                        <a class="page-link" href="<?php if ($halaman < $total_pages) {
+                                                        echo '?page=kegiatan&halaman=' . ($halaman + 1);
+                                                    } ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
         </section>
     </div>
 </main>

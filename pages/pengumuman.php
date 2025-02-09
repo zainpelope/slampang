@@ -1,7 +1,20 @@
 <?php
-include('koneksi.php');
+include 'koneksi.php';
 
-$sql = "SELECT * FROM pengumuman ORDER BY tanggal DESC";
+
+$per_page = 5;
+$halaman = isset($_GET['halaman']) && is_numeric($_GET['halaman']) ? $_GET['halaman'] : 1;
+if ($halaman < 1) {
+    $halaman = 1;
+}
+$start_from = ($halaman - 1) * $per_page;
+
+$sql_count = "SELECT COUNT(*) AS total FROM pengumuman";
+$result_count = $conn->query($sql_count);
+$total_records = $result_count->fetch_assoc()['total'];
+$total_pages = ceil($total_records / $per_page);
+
+$sql = "SELECT * FROM pengumuman ORDER BY tanggal DESC LIMIT $start_from, $per_page";
 $result = $conn->query($sql);
 ?>
 
@@ -21,7 +34,8 @@ $result = $conn->query($sql);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; ?>
+                    <?php $no = $start_from + 1;
+                    ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td><?= $no ?></td>
@@ -40,6 +54,33 @@ $result = $conn->query($sql);
                     <?php endwhile; ?>
                 </tbody>
             </table>
+
+            <nav aria-label="Page navigation example" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <?php if ($halaman <= 1) {
+                                                echo 'disabled';
+                                            } ?>">
+                        <a class="page-link" href="<?php if ($halaman > 1) {
+                                                        echo '?page=pengumuman&halaman=' . ($halaman - 1);
+                                                    } ?>">Previous</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                        <li class="page-item <?php if ($i == $halaman) {
+                                                    echo 'active';
+                                                } ?>">
+                            <a class="page-link" href="?page=pengumuman&halaman=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?php if ($halaman >= $total_pages) {
+                                                echo 'disabled';
+                                            } ?>">
+                        <a class="page-link" href="<?php if ($halaman < $total_pages) {
+                                                        echo '?page=pengumuman&halaman=' . ($halaman + 1);
+                                                    } ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
         <?php else: ?>
             <p>Tidak ada pengumuman saat ini.</p>
         <?php endif; ?>
@@ -60,7 +101,7 @@ $result = $conn->query($sql);
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-    
+
     .see-more {
         color: blue;
         font-style: italic;
