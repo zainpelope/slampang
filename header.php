@@ -24,7 +24,7 @@
                 </li>
                 <li><a href="index.php?page=warga">Layanan Publik</a></li>
                 <li><a href="index.php?page=kontak">Kontak</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="warga.php">Logout</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

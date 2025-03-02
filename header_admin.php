@@ -52,7 +52,7 @@ $jumlah_baru = $data['jumlah_baru'];
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="index.php">Logout</a></li>
+                        <li><a class="dropdown-item" href="warga.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>

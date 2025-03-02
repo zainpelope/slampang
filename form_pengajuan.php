@@ -5,54 +5,58 @@ session_start();
 include 'koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_pengguna = 1; // Sesuaikan dengan sistem autentikasi Anda
+    $id_pengguna = $_SESSION['id_pengguna'];
     $jenis_surat = $_POST['jenis_surat'];
-    $nama_lengkap = $_POST['nama_lengkap'];
-    $tempat_lahir = $_POST['tempat_lahir'];
-    $tanggal_lahir = $_POST['tanggal_lahir'];
-    $nik = $_POST['nik'];
-    $alamat = $_POST['alamat'];
-    $agama = $_POST['agama'];
-    $pekerjaan = isset($_POST['pekerjaan']) ? $_POST['pekerjaan'] : null;
-    $keperluan = isset($_POST['keperluan']) ? $_POST['keperluan'] : null;
-    $status_pernikahan = isset($_POST['status_pernikahan']) ? $_POST['status_pernikahan'] : null;
-    $jenis_usaha = isset($_POST['jenis_usaha']) ? $_POST['jenis_usaha'] : null;
+    $nama_lengkap = htmlspecialchars($_POST['nama_lengkap']);
+    $tempat_lahir = htmlspecialchars($_POST['tempat_lahir']);
+    $tanggal_lahir = date('Y-m-d', strtotime($_POST['tanggal_lahir']));
+    $nik = preg_replace('/[^0-9]/', '', $_POST['nik']); // Pastikan hanya angka
+    $alamat = htmlspecialchars($_POST['alamat']);
+    $agama = htmlspecialchars($_POST['agama']);
+    $pekerjaan = isset($_POST['pekerjaan']) ? htmlspecialchars($_POST['pekerjaan']) : null;
+    $keperluan = isset($_POST['keperluan']) ? htmlspecialchars($_POST['keperluan']) : null;
+    $status_pernikahan = isset($_POST['status_pernikahan']) ? htmlspecialchars($_POST['status_pernikahan']) : null;
+    $jenis_usaha = isset($_POST['jenis_usaha']) ? htmlspecialchars($_POST['jenis_usaha']) : null;
 
-    // Field tambahan untuk Surat Tanah
-    $status_tanah = isset($_POST['status_tanah']) ? $_POST['status_tanah'] : null;
-    $luas_tanah = isset($_POST['luas_tanah']) ? $_POST['luas_tanah'] : null;
-    $letak_tanah = isset($_POST['letak_tanah']) ? $_POST['letak_tanah'] : null;
-    $status_kepemilikan = isset($_POST['status_kepemilikan']) ? $_POST['status_kepemilikan'] : null;
-    $batas_utara = isset($_POST['batas_utara']) ? $_POST['batas_utara'] : null;
-    $batas_selatan = isset($_POST['batas_selatan']) ? $_POST['batas_selatan'] : null;
-    $batas_timur = isset($_POST['batas_timur']) ? $_POST['batas_timur'] : null;
-    $batas_barat = isset($_POST['batas_barat']) ? $_POST['batas_barat'] : null;
+    $status_tanah = isset($_POST['status_tanah']) ? htmlspecialchars($_POST['status_tanah']) : null;
+    $luas_tanah = isset($_POST['luas_tanah']) ? floatval($_POST['luas_tanah']) : null;
+    $letak_tanah = isset($_POST['letak_tanah']) ? htmlspecialchars($_POST['letak_tanah']) : null;
+    $status_kepemilikan = isset($_POST['status_kepemilikan']) ? htmlspecialchars($_POST['status_kepemilikan']) : null;
+    $batas_utara = isset($_POST['batas_utara']) ? htmlspecialchars($_POST['batas_utara']) : null;
+    $batas_selatan = isset($_POST['batas_selatan']) ? htmlspecialchars($_POST['batas_selatan']) : null;
+    $batas_timur = isset($_POST['batas_timur']) ? htmlspecialchars($_POST['batas_timur']) : null;
+    $batas_barat = isset($_POST['batas_barat']) ? htmlspecialchars($_POST['batas_barat']) : null;
 
-    // Upload Bukti Kepemilikan (Jika Ada)
-    $bukti_kepemilikan = null;
-    if (isset($_FILES['bukti_kepemilikan']) && $_FILES['bukti_kepemilikan']['error'] == 0) {
-        $upload_dir = '../uploads/';
-        $filename = time() . '_' . basename($_FILES['bukti_kepemilikan']['name']);
-        $upload_file = $upload_dir . $filename;
+    // Fungsi untuk upload file
+    function uploadFile($fileInput, $uploadDir = 'uploads/')
+    {
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+        if (isset($_FILES[$fileInput]) && $_FILES[$fileInput]['error'] == 0) {
+            $fileInfo = pathinfo($_FILES[$fileInput]['name']);
+            $fileExt = strtolower($fileInfo['extension']);
 
-        if (move_uploaded_file($_FILES['bukti_kepemilikan']['tmp_name'], $upload_file)) {
-            $bukti_kepemilikan = $filename;
+            if (!in_array($fileExt, $allowedExtensions)) {
+                die("Error: Format file tidak didukung!");
+            }
+
+            if ($_FILES[$fileInput]['size'] > 2 * 1024 * 1024) { // Batasi ukuran 2MB
+                die("Error: Ukuran file terlalu besar!");
+            }
+
+            $filename = time() . '_' . basename($_FILES[$fileInput]['name']);
+            $uploadFile = $uploadDir . $filename;
+
+            if (move_uploaded_file($_FILES[$fileInput]['tmp_name'], $uploadFile)) {
+                return $filename;
+            }
         }
+        return null;
     }
 
-    // Upload File Pendukung (KTP/KK)
-    $file_pendukung = null;
-    if (isset($_FILES['file_pendukung']) && $_FILES['file_pendukung']['error'] == 0) {
-        $upload_dir = '../uploads/';
-        $filename = time() . '_' . basename($_FILES['file_pendukung']['name']);
-        $upload_file = $upload_dir . $filename;
+    $bukti_kepemilikan = uploadFile('bukti_kepemilikan');
+    $file_pendukung = uploadFile('file_pendukung');
 
-        if (move_uploaded_file($_FILES['file_pendukung']['tmp_name'], $upload_file)) {
-            $file_pendukung = $filename;
-        }
-    }
-
-    // Insert ke `pengajuan_surat`
+    // Insert into pengajuan_surat
     $query1 = "INSERT INTO pengajuan_surat (id_pengguna, jenis_surat) VALUES (?, ?)";
     $stmt1 = $conn->prepare($query1);
     $stmt1->bind_param("is", $id_pengguna, $jenis_surat);
@@ -60,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt1->execute()) {
         $id_pengajuan = $conn->insert_id;
 
-        // Insert ke `detail_surat`
         $query2 = "INSERT INTO detail_surat 
                     (id_pengajuan, nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, agama, pekerjaan, keperluan, status_pernikahan, jenis_usaha, 
                     status_tanah, luas_tanah, letak_tanah, status_kepemilikan, bukti_kepemilikan, batas_utara, batas_selatan, batas_timur, batas_barat, file_pendukung) 
@@ -88,19 +91,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $batas_selatan,
             $batas_timur,
             $batas_barat,
-            $file_pendukung // Tambahkan file_pendukung di sini
+            $file_pendukung
         );
 
         if ($stmt2->execute()) {
             echo "<script>alert('Pengajuan berhasil!'); window.location='index.php?page=warga';</script>";
         } else {
-            die("Error detail_surat: " . $stmt2->error);
+            error_log("Error detail_surat: " . $stmt2->error);
+            die("Terjadi kesalahan, silakan coba lagi.");
         }
     } else {
-        die("Error pengajuan_surat: " . $stmt1->error);
+        error_log("Error pengajuan_surat: " . $stmt1->error);
+        die("Terjadi kesalahan, silakan coba lagi.");
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
