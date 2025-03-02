@@ -78,7 +78,7 @@ if (isset($_GET['id'])) {
                 <th>File Pendukung</th>
                 <td>
                     <?php if ($row['file_pendukung']) { ?>
-                        <a href="../uploads/<?= $row['file_pendukung']; ?>" target="_blank">Lihat File</a>
+                        <a href="uploads/<?= $row['file_pendukung']; ?>" target="_blank">Lihat File</a>
                     <?php } else { ?>
                         -
                     <?php } ?>

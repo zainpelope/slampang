@@ -17,15 +17,16 @@
 
                 <li class="dropdown"><a href=""><span>Informasi Desa</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                    <li><a href="index.php?page=berita">Berita</a></li>   
-                        <li><a href="index.php?page=kegiatan">Kegiatan</a></li>                
+                        <li><a href="index.php?page=berita">Berita</a></li>
+                        <li><a href="index.php?page=kegiatan">Kegiatan</a></li>
                         <li><a href="index.php?page=pengumuman">Pengumuman</a></li>
                     </ul>
                 </li>
+                <li><a href="index.php?page=warga">Layanan Publik</a></li>
                 <li><a href="index.php?page=kontak">Kontak</a></li>
-                <li><a href="admin/login.php">Login</a></li>
+                <li><a href="login.php">Login</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
     </div>
-</header> 
+</header>

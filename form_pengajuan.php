@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         if ($stmt2->execute()) {
-            echo "<script>alert('Pengajuan berhasil!'); window.location='../index.php';</script>";
+            echo "<script>alert('Pengajuan berhasil!'); window.location='index.php?page=warga';</script>";
         } else {
             die("Error detail_surat: " . $stmt2->error);
         }

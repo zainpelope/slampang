@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role'] = 'warga'; // Default sebagai warga
 
             // Arahkan ke index.php setelah login berhasil
-            header("Location: user/user.php");
+            header("Location: index.php?page=home");
             exit();
         } else {
             echo "<script>alert('Password salah!');</script>";
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <button type="submit" class="btn btn-primary mt-3">Login</button>
         </form>
-        <p>Belum punya akun? <a href="register.php">Daftar</a></p>
+
         <p>Perangkat Desa? <a href="admin/login.php">Login </a></p>
     </div>
 </body>

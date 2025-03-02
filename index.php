@@ -101,7 +101,7 @@
             <?php
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
-                $allowed_pages = ['home', 'sejarah', 'kegiatan', 'pengumuman', 'struktur-desa', 'visi-misi', 'kontak', 'berita'];
+                $allowed_pages = ['home', 'sejarah', 'kegiatan', 'pengumuman', 'struktur-desa', 'visi-misi', 'kontak', 'berita', 'warga'];
                 if (in_array($page, $allowed_pages)) {
                     include 'pages/' . $page . '.php';
                 } else {

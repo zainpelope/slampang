@@ -2,6 +2,7 @@
 session_start();
 include 'koneksi.php';
 
+
 // Pastikan pengguna sudah login
 if (!isset($_SESSION['id_pengguna'])) {
     header("Location: login.php");
@@ -20,19 +21,12 @@ $query_surat = "SELECT * FROM pengajuan_surat WHERE id_pengguna = '$id_pengguna'
 $result_surat = $conn->query($query_surat);
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <title>Dashboard Warga</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-</head>
-
-<body>
+<main class="main">
+    <div class="page-title dark-background"></div>
     <div class="container mt-4">
-        <h2>Selamat Datang, <?= $user['nama']; ?>!</h2>
-        <p>Email: <?= $user['email']; ?></p>
-        <p>Nomor HP: <?= $user['no_hp']; ?></p>
+
+        <a href="form_pengajuan.php" class="btn btn-primary">Ajukan Surat Baru</a>
+
         <hr>
 
         <h3>Status Pengajuan Surat</h3>
@@ -64,10 +58,9 @@ $result_surat = $conn->query($query_surat);
         </table>
     </div>
 
-    <div class="container mt-4">
-        <a href="user/form_pengajuan.php" class="btn btn-primary">Ajukan Surat Baru</a>
-        <a href="login.php" class="btn btn-danger">Logout</a>
-    </div>
-</body>
 
-</html>
+</main>
+
+<?php include('footer.html'); ?>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<div id="preloader"></div>
