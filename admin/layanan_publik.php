@@ -1,9 +1,9 @@
 <?php
 include('koneksi.php');
-// Query untuk daftar pengajuan surat
+
 $result = $conn->query("SELECT ps.*, p.nama FROM pengajuan_surat ps JOIN pengguna p ON ps.id_pengguna = p.id ORDER BY ps.tanggal_pengajuan DESC");
 
-// Query untuk menghitung jumlah surat berdasarkan status
+
 $total_masuk = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat")->fetch_assoc()['total'];
 $total_ditolak = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHERE status = 'Ditolak'")->fetch_assoc()['total'];
 $total_diproses = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHERE status = 'Diproses'")->fetch_assoc()['total'];
@@ -108,22 +108,23 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                                         $cetak_link = 'cetak/cetak_domisili.php?id=' . $row['id'];
                                         break;
                                     case 'Tidak Mampu':
-                                        $cetak_link = '../cetak/cetak_sktm.php?id=' . $row['id'];
+                                        $cetak_link = 'cetak/cetak_sktm.php?id=' . $row['id'];
                                         break;
                                     case 'Usaha':
-                                        $cetak_link = '../cetak/cetak_usaha.php?id=' . $row['id'];
+                                        $cetak_link = 'cetak/cetak_usaha.php?id=' . $row['id'];
                                         break;
                                     case 'Belum Menikah':
-                                        $cetak_link = '../cetak/cetak_belum_menikah.php?id=' . $row['id'];
+                                        $cetak_link = 'cetak/cetak_belum_menikah.php?id=' . $row['id'];
                                         break;
                                     case 'Tanah':
-                                        $cetak_link = '../cetak/cetak_tanah.php?id=' . $row['id'];
+                                        $cetak_link = 'cetak/cetak_tanah.php?id=' . $row['id'];
                                         break;
                                     default:
-                                        $cetak_link = '#'; // Atau template default
+                                        $cetak_link = '#';
                                 }
                                 ?>
-                                <a href="<?= $cetak_link; ?>" class="btn btn-primary btn-sm" id="cetakBtn">Cetak</a>
+                                <a href="#" class="btn btn-primary btn-sm" onclick="cetakSurat('<?= $cetak_link; ?>', <?= $row['id']; ?>)">Cetak</a>
+
                                 <a href="siap_diambil.php?id=<?= $row['id']; ?>" class="btn btn-primary btn-sm" id="sudahCetakBtn" style="display: none;">Sudah Cetak</a>
                             <?php } else { ?>
                                 <button class="btn btn-secondary btn-sm" disabled><?= $row['status']; ?></button>
@@ -135,12 +136,19 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
         </table>
     </div>
 
+
     <script>
-        document.getElementById('cetakBtn').addEventListener('click', function() {
-            document.getElementById('cetakBtn').style.display = 'none';
-            document.getElementById('sudahCetakBtn').style.display = 'inline-block';
-        });
+        function cetakSurat(url, id) {
+            window.open(url, '_blank');
+            fetch('siap_diambil.php?id=' + id, {
+                    method: 'GET'
+                }).then(response => response.text())
+                .then(data => {
+                    location.reload();
+                }).catch(error => console.error('Error:', error));
+        }
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </main>
