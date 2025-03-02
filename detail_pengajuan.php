@@ -120,7 +120,7 @@ if (isset($_GET['id'])) {
                     <th>Bukti Kepemilikan</th>
                     <td>
                         <?php if ($row['bukti_kepemilikan']) { ?>
-                            <a href="../uploads/<?= $row['bukti_kepemilikan']; ?>" target="_blank">Lihat File</a>
+                            <a href="uploads/<?= $row['bukti_kepemilikan']; ?>" target="_blank">Lihat File</a>
                         <?php } else { ?>
                             -
                         <?php } ?>

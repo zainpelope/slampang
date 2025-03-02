@@ -1,17 +1,22 @@
 <?php
-include 'koneksi.php';
+include('koneksi.php');
 
-if (isset($_GET['id'])) {
-    $id_pengajuan = $_GET['id'];
+if (isset($_GET['id']) && isset($_POST['alasan_penolakan'])) {
+    $id = $_GET['id'];
+    $alasan = $_POST['alasan_penolakan'];
 
-    // Update status menjadi 'Siap Diambil'
-    $query = "UPDATE pengajuan_surat SET status = 'Siap Diambil' WHERE id = $id_pengajuan";
+    // Update status menjadi Ditolak
+    $query = "UPDATE pengajuan_surat SET status='Ditolak', alasan_penolakan=? WHERE id=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("si", $alasan, $id);
 
-    if ($conn->query($query) === TRUE) {
-        echo "<script>alert('Surat siap diambil!'); window.location.href='index_admin.php?page=layanan_publik';</script>";
+    if ($stmt->execute()) {
+        echo "<script>alert('Pengajuan ditolak!'); window.location.href='index_admin.php?page=layanan_publik';</script>";
     } else {
-        echo "Gagal memperbarui status: " . $conn->error;
+        echo "<script>alert('Gagal menolak pengajuan!'); window.history.back();</script>";
     }
 } else {
-    echo "ID tidak ditemukan!";
+    echo "<script>alert('Data tidak lengkap!'); window.history.back();</script>";
 }
+
+$conn->close();
