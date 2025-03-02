@@ -1,14 +1,34 @@
 <?php
 include('koneksi.php');
 
-$result = $conn->query("SELECT ps.*, p.nama FROM pengajuan_surat ps JOIN pengguna p ON ps.id_pengguna = p.id ORDER BY ps.tanggal_pengajuan DESC");
 
+$batas = 10;
+$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
+
+$previous = $halaman - 1;
+$next = $halaman + 1;
+
+
+$cari = isset($_GET['cari']) ? $_GET['cari'] : '';
+$where = "";
+if ($cari != '') {
+    $where = "WHERE p.nama LIKE '%$cari%' OR ps.jenis_surat LIKE '%$cari%'";
+}
+
+$data = mysqli_query($conn, "SELECT ps.*, p.nama FROM pengajuan_surat ps JOIN pengguna p ON ps.id_pengguna = p.id $where");
+$jumlah_data = mysqli_num_rows($data);
+$total_halaman = ceil($jumlah_data / $batas);
+
+$query = "SELECT ps.*, p.nama FROM pengajuan_surat ps JOIN pengguna p ON ps.id_pengguna = p.id $where ORDER BY ps.tanggal_pengajuan DESC LIMIT $halaman_awal, $batas";
+$result = $conn->query($query);
 
 $total_masuk = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat")->fetch_assoc()['total'];
 $total_ditolak = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHERE status = 'Ditolak'")->fetch_assoc()['total'];
 $total_diproses = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHERE status = 'Diproses'")->fetch_assoc()['total'];
 $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHERE status = 'Siap Diambil'")->fetch_assoc()['total'];
 ?>
+
 <main class="main">
     <div class="page-title dark-background"></div>
     <div class="container mt-4">
@@ -51,6 +71,14 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                 </div>
             </div>
         </div>
+
+        <form method="GET" action="">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Cari Nama/Jenis Surat" name="cari" value="<?= $cari; ?>">
+                <input type="hidden" name="page" value="layanan_publik">
+                <button class="btn btn-outline-secondary" type="submit">Cari</button>
+            </div>
+        </form>
 
         <table class="table">
             <thead>
@@ -124,7 +152,6 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                                 }
                                 ?>
                                 <a href="#" class="btn btn-primary btn-sm" onclick="cetakSurat('<?= $cetak_link; ?>', <?= $row['id']; ?>)">Cetak</a>
-
                                 <a href="siap_diambil.php?id=<?= $row['id']; ?>" class="btn btn-primary btn-sm" id="sudahCetakBtn" style="display: none;">Sudah Cetak</a>
                             <?php } else { ?>
                                 <button class="btn btn-secondary btn-sm" disabled><?= $row['status']; ?></button>
@@ -134,8 +161,24 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                 <?php } ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php if ($halaman > 1) { ?>
+                    <li class="page-item"><a class="page-link" href="?page=layanan_publik&cari=<?= $cari; ?>&halaman=<?= $previous; ?>">Previous</a></li>
+                <?php } ?>
+                <?php
+                for ($x = 1; $x <= $total_halaman; $x++) {
+                ?>
+                    <li class="page-item <?= ($halaman == $x) ? 'active' : ''; ?>"><a class="page-link" href="?page=layanan_publik&cari=<?= $cari; ?>&halaman=<?= $x; ?>"><?= $x; ?></a></li>
+                <?php
+                }
+                ?>
+                <?php if ($halaman < $total_halaman) { ?>
+                    <li class="page-item"><a class="page-link" href="?page=layanan_publik&cari=<?= $cari; ?>&halaman=<?= $next; ?>">Next</a></li>
+                <?php } ?>
+            </ul>
+        </nav>
     </div>
-
 
     <script>
         function cetakSurat(url, id) {
@@ -152,7 +195,6 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </main>
-
 
 <?php include('footer.html'); ?>
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
