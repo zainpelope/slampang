@@ -9,10 +9,11 @@ if (isset($_GET['id'])) {
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        ?>
+?>
 
         <!DOCTYPE html>
         <html>
+
         <head>
             <title>Detail Pengumuman</title>
             <style>
@@ -67,14 +68,14 @@ if (isset($_GET['id'])) {
                 }
 
                 .kembali {
-                    display: block; 
-                    width: 100%; 
+                    display: block;
+                    width: 100%;
                     padding: 10px 15px;
                     background-color: #f44336;
                     color: white;
                     text-decoration: none;
                     border-radius: 4px;
-                    box-sizing: border-box; 
+                    box-sizing: border-box;
                 }
 
                 .kembali:hover {
@@ -82,10 +83,11 @@ if (isset($_GET['id'])) {
                 }
             </style>
         </head>
+
         <body>
             <div class="container">
                 <h1><?php echo $row['judul']; ?></h1>
-                <p class="tanggal">Tanggal : 
+                <p class="tanggal">Tanggal :
                     <span class="tanggal-angka"> <?php echo date('d', strtotime($row['tanggal'])); ?> </span>
                     <em> <?php echo strftime('%B', strtotime($row['tanggal'])); ?> </em>
                     <?php echo date('Y', strtotime($row['tanggal'])); ?>
@@ -96,9 +98,10 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </body>
+
         </html>
 
-        <?php
+<?php
     } else {
         echo "Pengumuman tidak ditemukan.";
     }

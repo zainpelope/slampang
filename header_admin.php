@@ -22,20 +22,20 @@ $jumlah_baru = $data['jumlah_baru'];
                         <li><a href="index_admin.php?page=visi-misi">Visi-Misi</a></li>
                         <li><a href="index_admin.php?page=struktur">Struktur Desa</a></li>
                         <li><a href="index_admin.php?page=galery">Galery</a></li>
-                       
+
                     </ul>
                 </li>
                 <li class="dropdown"><a href=""><span>Informasi Desa</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                    <li><a href="index_admin.php?page=berita">Berita</a></li>   
-                        <li><a href="index_admin.php?page=kegiatan">Kegiatan</a></li>                
+                        <li><a href="index_admin.php?page=berita">Berita</a></li>
+                        <li><a href="index_admin.php?page=kegiatan">Kegiatan</a></li>
                         <li><a href="index_admin.php?page=pengumuman">Pengumuman</a></li>
                     </ul>
                 </li>
-              
-               
-            
-            
+
+                <li><a href="index_admin.php?page=layanan_publik">Layanan Publik</a></li>
+
+
                 <li>
                     <a href="admin/kotak_masuk.php">
                         Kotak Masuk
