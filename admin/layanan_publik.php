@@ -35,7 +35,7 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
         <h2>Daftar Pengajuan Surat</h2>
 
         <div class="mt-4">
-            <h3>History</h3>
+
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
@@ -71,6 +71,7 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                 </div>
             </div>
         </div>
+        <br>
 
         <form method="GET" action="">
             <div class="input-group mb-3">
