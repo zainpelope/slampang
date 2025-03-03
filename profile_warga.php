@@ -62,7 +62,7 @@ $user = $result->fetch_assoc();
 
                     <div class="btn-group">
                         <a href="edit_profile.php" class="btn btn-primary">Edit</a>
-                        <a href="login.php" class="btn btn-secondary">Logout</a>
+                        <a href="slampang.php" class="btn btn-secondary">Logout</a>
                     </div>
                 </div>
             </div>

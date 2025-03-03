@@ -98,7 +98,7 @@ $avatar_url = "https://i.pravatar.cc/150?u=" . md5($admin['email']);
         </div>
         <div class="btn-container">
             <a href="edit_profile_admin.php" class="btn btn-warning"><i class="fas fa-edit me-2"></i>Edit</a>
-            <a href="logout.php" class="btn btn-danger"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+            <a href="../slampang.php" class="btn btn-danger"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
             <a href="../index_admin.php?admin=home_admin" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
         </div>
     </div>
