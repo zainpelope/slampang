@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Surat Keterangan Usaha</title>
+            <title>Surat Keterangan Belum Nikah</title>
             <style>
                 @page {
                     size: A4;
@@ -104,7 +104,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <hr>
-            <h3 style="text-align: center; text-decoration: underline;">SURAT KETERANGAN USAHA</h3>
+            <h3 style="text-align: center; text-decoration: underline;">SURAT KETERANGAN BELUM MENIKAH</h3>
             <p style="text-align: center;">Nomor: 541/72/464.531.16/<?= date('Y'); ?></p>
 
             <div class="isi">
@@ -135,18 +135,17 @@ if (isset($_GET['id'])) {
                         <td>Alamat</td>
                         <td>: <?= $data['alamat']; ?></td>
                     </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>: <?= $data['status_pernikahan']; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Keperluan</td>
+                        <td>: <?= $data['keperluan']; ?></td>
+                    </tr>
                 </table>
                 <br>
-                <p>Benar yang bersangkutan memiliki usaha dengan jenis usaha:</p>
-                <br>
-                <tr>
-                    <td>Jenis Usaha</td>
-                    <td>: <?= $data['jenis_usaha']; ?></td>
-                </tr>
-                <br>
-                <p>Surat keterangan ini dibuat untuk keperluan: <?= $data['keperluan']; ?></p>
-
-                <br>
+                <p>Berdasarkan data dan informasi yang kami peroleh, yang bersangkutan sampai saat ini belum pernah menikah.</p>
                 <p>Demikian surat keterangan ini dibuat dengan sebenarnya dan untuk dapat dipergunakan sebagaimana mestinya.</p>
             </div>
 

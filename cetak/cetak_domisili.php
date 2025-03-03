@@ -35,6 +35,7 @@ if (isset($_GET['id'])) {
                     font-family: 'Times New Roman', Times, serif;
                     margin: 0;
                     padding: 2cm;
+                    padding-top: 1cm;
                 }
 
                 .header {
@@ -108,7 +109,7 @@ if (isset($_GET['id'])) {
 
             <div class="isi">
                 <p>Yang bertanda tangan di bawah ini Kepala Desa Larangan Slampar Kecamatan Tlanakan Kabupaten Pamekasan, menerangkan dengan sebenar-benarnya bahwa:</p>
-
+                <br>
                 <table>
                     <tr>
                         <td>Nama</td>
@@ -120,7 +121,7 @@ if (isset($_GET['id'])) {
                     </tr>
                     <tr>
                         <td>Tempat, Tanggal Lahir</td>
-                        <td>: <?= $data['tempat_lahir']; ?>, <?= $data['tanggal_lahir']; ?></td>
+                        <td>: <?= $data['tempat_lahir']; ?>, <?= date('d-m-Y', strtotime($data['tanggal_lahir'])); ?></td>
                     </tr>
                     <tr>
                         <td>Agama</td>
@@ -130,8 +131,12 @@ if (isset($_GET['id'])) {
                         <td>Alamat</td>
                         <td>: <?= $data['alamat']; ?></td>
                     </tr>
+                    <tr>
+                        <td>Keperluan</td>
+                        <td>: <?= $data['keperluan']; ?></td>
+                    </tr>
                 </table>
-
+                <br>
                 <p>Bahwa orang di atas tersebut adalah benar-benar penduduk Desa Larangan Slampar dan berdomisili di Desa Larangan Slampar Kecamatan Tlanakan Kabupaten Pamekasan.</p>
 
                 <p>Demikian surat keterangan ini dibuat agar dapat digunakan sebagaimana mestinya.</p>
