@@ -27,7 +27,10 @@ $result = mysqli_query($conn, $sql);
             <div class="section-title text-center">
                 <h2>Warga</h2>
             </div>
-            <a href="tambah_warga.php" class="btn btn-primary mb-3">Tambah Warga</a>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a href="tambah_warga.php" class="btn btn-primary">Tambah Warga</a>
+                <span class="badge bg-success p-2 fs-6">Total Warga: <?= $total; ?></span>
+            </div>
 
 
             <form method="GET" action="" class="mb-3 d-flex">

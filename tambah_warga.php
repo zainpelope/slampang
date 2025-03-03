@@ -8,7 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $alamat = $_POST['alamat'];
     $no_hp = $_POST['no_hp'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Enkripsi password
+    $password = $_POST['password'];
+
 
     $sql = "INSERT INTO pengguna (nama, nik, tanggal_lahir, alamat, no_hp, email, password) VALUES ('$nama', '$nik', '$tanggal_lahir', '$alamat', '$no_hp', '$email', '$password')";
 
