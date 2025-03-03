@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-success">Login</button>
-                <a href="warga.php" class="btn btn-secondary">Kembali</a>
+                <a href="slampang.php" class="btn btn-secondary">Kembali</a>
             </div>
         </form>
     </div>

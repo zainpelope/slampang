@@ -45,17 +45,7 @@ $jumlah_baru = $data['jumlah_baru'];
                         <?php endif; ?>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Profile
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="slampang.php">Logout</a></li>
-                    </ul>
-                </li>
+                <li><a href="admin/profile_admin.php">Profile</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
