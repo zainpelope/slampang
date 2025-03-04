@@ -4,26 +4,30 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nik = $_POST['nik'];
-    $password = $_POST['password'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
 
-    $query = "SELECT * FROM pengguna WHERE nik='$nik'";
-    $result = $conn->query($query);
+    // Validasi NIK: Harus angka dan 16 digit
+    if (!preg_match("/^[0-9]{16}$/", $nik)) {
+        echo "<script>alert('NIK harus terdiri dari 16 angka!');</script>";
+    } else {
+        // Format tanggal lahir ke YYYY-MM-DD
+        $tanggal_lahir = date('Y-m-d', strtotime($tanggal_lahir));
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        if ($password == $user['password']) { // Pastikan pakai password hashing (bcrypt)
-            $_SESSION['id_pengguna'] = $user['id']; // Ubah ke `id_pengguna` agar konsisten
+        // Cek NIK dan Tanggal Lahir di database
+        $query = "SELECT * FROM pengguna WHERE nik='$nik' AND tanggal_lahir='$tanggal_lahir'";
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            $_SESSION['id_pengguna'] = $user['id'];
             $_SESSION['nama'] = $user['nama'];
-            $_SESSION['role'] = 'warga'; // Default sebagai warga
+            $_SESSION['role'] = 'warga';
 
-            // Arahkan ke index.php setelah login berhasil
             header("Location: index.php?page=home");
             exit();
         } else {
-            echo "<script>alert('Password salah!');</script>";
+            echo "<script>alert('NIK atau Tanggal Lahir salah!');</script>";
         }
-    } else {
-        echo "<script>alert('NIK tidak ditemukan!');</script>";
     }
 }
 ?>
@@ -71,14 +75,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="login-container">
         <h2 class="text-center mb-4">Login</h2>
-        <form method="POST">
+        <form method="POST" onsubmit="return validateForm()">
             <div class="mb-3">
                 <label for="nik" class="form-label">NIK:</label>
-                <input type="text" name="nik" id="nik" class="form-control" required>
+                <input type="text" name="nik" id="nik" class="form-control" required maxlength="16">
+                <small class="text-danger" id="nikError"></small>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <label for="tanggal_lahir" class="form-label">Tanggal Lahir:</label>
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required>
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-success">Login</button>
@@ -86,6 +91,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+
+    <script>
+        function validateForm() {
+            let nik = document.getElementById('nik').value;
+            let nikError = document.getElementById('nikError');
+
+            if (!/^\d{16}$/.test(nik)) {
+                nikError.innerText = "NIK harus terdiri dari 16 angka!";
+                return false;
+            } else {
+                nikError.innerText = "";
+                return true;
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
