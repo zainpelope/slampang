@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>`;
                 html += `<div class="mb-3">
                         <label class="form-label">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" class="form-control" required>
+                        <input type="date" name="tanggal_lahir" class="form-control" required id="tanggal_lahir">
                     </div>`;
                 html += `<div class="mb-3">
                         <label class="form-label">NIK</label>
@@ -255,6 +255,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             formFields.innerHTML = html;
+            document.getElementById("tanggal_lahir").valueAsDate = new Date();
         }
 
         function validateNIK(input) {
