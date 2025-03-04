@@ -115,6 +115,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Form Pengajuan Surat</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
     <script>
         function showForm() {
             var jenisSurat = document.getElementById("jenis_surat").value;
@@ -122,66 +145,161 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             var html = "";
             if (jenisSurat) {
-                html += `<label>Nama Lengkap</label><input type="text" name="nama_lengkap" class="form-control" required>`;
-                html += `<label>Tempat Lahir</label><input type="text" name="tempat_lahir" class="form-control" required>`;
-                html += `<label>Tanggal Lahir</label><input type="date" name="tanggal_lahir" class="form-control" required>`;
-                html += `<label>NIK</label><input type="text" name="nik" class="form-control" required>`;
-                html += `<label>Alamat</label><textarea name="alamat" class="form-control" required></textarea>`;
-                html += `<label>Agama</label><input type="text" name="agama" class="form-control" required>`;
-                html += `<label>Pekerjaan</label><input type="text" name="pekerjaan" class="form-control">`;
-                html += `<label>Keperluan</label><textarea name="keperluan" class="form-control" required></textarea>`;
-                html += `<label>File Pendukung (KTP/KK)</label><input type="file" name="file_pendukung" class="form-control">`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" name="nama_lengkap" class="form-control" required>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" class="form-control" required>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" class="form-control" required>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">NIK</label>
+                        <input type="text" name="nik" id="nik" class="form-control" required 
+                               oninput="validateNIK(this)">
+                        <div class="text-danger mt-1" id="nik_error"></div>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Alamat</label>
+                        <textarea name="alamat" class="form-control" required></textarea>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Agama</label>
+                        <select name="agama" class="form-select" required>
+                            <option value="">-- Pilih Agama --</option>
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+                            <option value="Konghucu">Konghucu</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Pekerjaan</label>
+                        <input type="text" name="pekerjaan" class="form-control">
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">Keperluan</label>
+                        <textarea name="keperluan" class="form-control" required></textarea>
+                    </div>`;
+                html += `<div class="mb-3">
+                        <label class="form-label">File Pendukung (KTP/KK)</label>
+                        <input type="file" name="file_pendukung" class="form-control">
+                    </div>`;
 
                 if (jenisSurat === "Belum Menikah") {
-                    html += `<label>Status Pernikahan</label>
-                                <select name="status_pernikahan" class="form-control">
-                                    <option value="Belum Menikah">Belum Menikah</option>
-                                    <option value="Menikah">Menikah</option>
-                                </select>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Status Pernikahan</label>
+                            <select name="status_pernikahan" class="form-select">
+                                <option value="Belum Menikah">Belum Menikah</option>
+                                <option value="Menikah">Menikah</option>
+                            </select>
+                        </div>`;
                 }
 
                 if (jenisSurat === "Usaha") {
-                    html += `<label>Jenis Usaha</label><input type="text" name="jenis_usaha" class="form-control" required>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Jenis Usaha</label>
+                            <input type="text" name="jenis_usaha" class="form-control" required>
+                        </div>`;
                 }
+
                 if (jenisSurat === "Tanah") {
-                    html += `<label>Status Tanah</label><input type="text" name="status_tanah" class="form-control" required>`;
-                    html += `<label>Luas Tanah (m²)</label><input type="number" name="luas_tanah" class="form-control" required>`;
-                    html += `<label>Letak Tanah</label><textarea name="letak_tanah" class="form-control" required></textarea>`;
-                    html += `<label>Status Kepemilikan</label>
-                                <select name="status_kepemilikan" class="form-control">
-                                    <option value="Pribadi">Pribadi</option>
-                                    <option value="Warisan">Warisan</option>
-                                    <option value="Hak Guna">Hak Guna</option>
-                                    <option value="Sewa">Sewa</option>
-                                </select>`;
-                    html += `<label>Bukti Kepemilikan</label><input type="file" name="bukti_kepemilikan" class="form-control">`;
-                    html += `<label>Batas Utara</label><input type="text" name="batas_utara" class="form-control">`;
-                    html += `<label>Batas Selatan</label><input type="text" name="batas_selatan" class="form-control">`;
-                    html += `<label>Batas Timur</label><input type="text" name="batas_timur" class="form-control">`;
-                    html += `<label>Batas Barat</label><input type="text" name="batas_barat" class="form-control">`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Status Tanah</label>
+                            <input type="text" name="status_tanah" class="form-control" required>
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Luas Tanah (m²)</label>
+                            <input type="number" name="luas_tanah" class="form-control" required>
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Letak Tanah</label>
+                            <textarea name="letak_tanah" class="form-control" required></textarea>
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Status Kepemilikan</label>
+                            <select name="status_kepemilikan" class="form-select">
+                                <option value="Pribadi">Pribadi</option>
+                                <option value="Warisan">Warisan</option>
+                                <option value="Hak Guna">Hak Guna</option>
+                                <option value="Sewa">Sewa</option>
+                            </select>
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Bukti Kepemilikan</label>
+                            <input type="file" name="bukti_kepemilikan" class="form-control">
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Batas Utara</label>
+                            <input type="text" name="batas_utara" class="form-control">
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Batas Selatan</label>
+                            <input type="text" name="batas_selatan" class="form-control">
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Batas Timur</label>
+                            <input type="text" name="batas_timur" class="form-control">
+                        </div>`;
+                    html += `<div class="mb-3">
+                            <label class="form-label">Batas Barat</label>
+                            <input type="text" name="batas_barat" class="form-control">
+                        </div>`;
                 }
             }
             formFields.innerHTML = html;
         }
+
+        function validateNIK(input) {
+            var nik = input.value;
+            var errorDiv = document.getElementById("nik_error");
+
+            if (!/^\d{0,16}$/.test(nik)) {
+                input.value = nik.slice(0, -1);
+            }
+
+            if (nik.length !== 16) {
+                errorDiv.innerText = "NIK harus terdiri dari 16 angka!";
+            } else {
+                errorDiv.innerText = "";
+            }
+        }
     </script>
+
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2>Form Pengajuan Surat</h2>
-        <form method="POST" enctype="multipart/form-data">
-            <label>Pilih Jenis Surat</label>
-            <select name="jenis_surat" id="jenis_surat" class="form-control" onchange="showForm()" required>
-                <option value="">-- Pilih --</option>
-                <option value="Domisili">Surat Domisili</option>
-                <option value="Tidak Mampu">Surat Keterangan Tidak Mampu</option>
-                <option value="Usaha">Surat Usaha</option>
-                <option value="Belum Menikah">Surat Belum Menikah</option>
-                <option value="Tanah">Surat Tanah</option>
-            </select>
-            <div id="form_fields" class="mt-3"></div>
-            <button type="submit" class="btn btn-primary mt-3">Ajukan Surat</button>
-        </form>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3 class="text-center mb-4">Form Pengajuan Surat</h3>
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Pilih Jenis Surat</label>
+                            <select name="jenis_surat" id="jenis_surat" class="form-select" onchange="showForm()" required>
+                                <option value="">-- Pilih --</option>
+                                <option value="Domisili">Surat Domisili</option>
+                                <option value="Tidak Mampu">Surat Keterangan Tidak Mampu</option>
+                                <option value="Usaha">Surat Usaha</option>
+                                <option value="Belum Menikah">Surat Belum Menikah</option>
+                                <option value="Tanah">Surat Tanah</option>
+                            </select>
+                        </div>
+                        <div id="form_fields"></div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Ajukan Surat</button>
+                        <a href="index.php?page=warga" class="btn btn-secondary w-100 mt-3">Kembali</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
