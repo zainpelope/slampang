@@ -5,7 +5,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar"])) {
     $gambar = $_FILES["gambar"]["name"];
     $id_admin = $_SESSION['id_admin'];
-    $target_dir = "../uploads/";
+    $target_dir = "../../uploads/";
     $target_file = $target_dir . basename($gambar);
 
     if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {

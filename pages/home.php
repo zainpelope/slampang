@@ -192,8 +192,8 @@ $result_banner = $conn->query($sql_banner);
         <?php while ($row = $result_galery->fetch_assoc()) : ?>
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="admin/uploads/<?= $row['gambar'] ?>" class="glightbox" data-gallery="images-gallery">
-                <img src="admin/uploads/<?= $row['gambar'] ?>" class="img-fluid">
+              <a href="uploads/<?= $row['gambar'] ?>" class="glightbox" data-gallery="images-gallery">
+                <img src="uploads/<?= $row['gambar'] ?>" class="img-fluid">
               </a>
             </div>
           </div>

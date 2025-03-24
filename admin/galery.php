@@ -59,7 +59,7 @@ if (isset($_GET['hapus'])) {
                 <div class="col-md-3">
                     <div class="card shadow-sm">
                         <div class="ratio ratio-1x1">
-                            <img src="admin/uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar" style="object-fit: cover;">
+                            <img src="uploads/<?= $row['gambar'] ?>" class="card-img-top" alt="Gambar" style="object-fit: cover;">
                         </div>
                         <div class="card-body text-center">
                             <button class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $row['id_galery'] ?>)">Hapus</button>
