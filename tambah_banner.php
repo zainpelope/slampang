@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+
     $check = getimagesize($_FILES["gambar"]["tmp_name"]);
     if ($check !== false) {
         $uploadOk = 1;
@@ -21,20 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "File bukan gambar.";
         $uploadOk = 0;
     }
-
-    if ($_FILES["gambar"]["size"] > 500000) {
-        echo "Ukuran file terlalu besar.";
+    $allowed_formats = ["jpg", "png", "jpeg", "gif", "webp"];
+    if (!in_array($imageFileType, $allowed_formats)) {
+        echo "Hanya file JPG, PNG, JPEG, GIF, dan WEBP yang diizinkan.";
         $uploadOk = 0;
     }
 
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-        echo "Hanya file JPG, PNG, JPEG, dan GIF yang diizinkan.";
-        $uploadOk = 0;
-    }
-
-    if ($uploadOk == 0) {
-        echo "Maaf, file tidak berhasil diupload.";
-    } else {
+    if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
             $gambar = $target_file;
             $judul = $_POST['judul'];
@@ -55,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -63,119 +56,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Banner</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 500px;
-            margin: 20px auto;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        input[type="text"],
-        textarea {
-            width: calc(100% - 12px);
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            height: 120px;
-        }
-
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .button-container a,
-        input[type="submit"] {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .button-container a {
-            background-color: #dc3545;
-            color: white;
-            text-decoration: none;
-            margin-top: 10px;
-        }
-
-        .button-container a:hover {
-            background-color: #c12a36;
-        }
-
-        input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Tambah Banner</h1>
-        <?php if (isset($error)) : ?>
-            <div class="error"><?= $error ?></div>
-        <?php endif; ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-            <label for="gambar">Gambar:</label>
-            <input type="file" name="gambar" id="gambar" required><br><br>
-
-            <label for="judul">Judul:</label>
-            <input type="text" name="judul" id="judul" required><br><br>
-
-            <label for="keterangan">Keterangan:</label>
-            <textarea name="keterangan" id="keterangan"></textarea><br><br>
-
-            <div class="button-container">
-                <input type="submit" value="Simpan">
-                <a href="index_admin.php?admin=home_admin">Kembali</a>
+    <div class="container mt-5">
+        <h1 class="text-center">Tambah Banner</h1>
+        <form method="post" action="" enctype="multipart/form-data" class="p-4 bg-light rounded shadow">
+            <div class="mb-3">
+                <label for="gambar" class="form-label">Gambar:</label>
+                <input type="file" class="form-control" name="gambar" id="gambar" required>
             </div>
+
+            <div class="mb-3">
+                <label for="judul" class="form-label">Judul:</label>
+                <input type="text" class="form-control" name="judul" id="judul" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="keterangan" class="form-label">Keterangan:</label>
+                <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Simpan</button>
+            <a href="index_admin.php?admin=home_admin" class="btn btn-danger w-100 mt-2">Kembali</a>
         </form>
     </div>
 </body>
