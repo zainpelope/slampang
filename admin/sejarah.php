@@ -39,7 +39,7 @@ $total_pages = ceil($total_records / $per_page);
                         <?php
                         $no = $start_from + 1;
                         while ($row = $result->fetch_assoc()) :
-                            $gambar_path = "admin/uploads/" . htmlspecialchars($row['gambar']);
+                            $gambar_path = "uploads/" . htmlspecialchars($row['gambar']);
                         ?>
                             <tr>
                                 <td><?= $no++; ?></td>

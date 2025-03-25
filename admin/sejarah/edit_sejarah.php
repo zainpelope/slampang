@@ -19,12 +19,12 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $keterangan = $_POST['keterangan'];
-    $gambar_lama = $_POST['gambar_lama']; 
+    $gambar_lama = $_POST['gambar_lama'];
 
     if ($_FILES['gambar']['name']) {
         $gambar_baru = $_FILES['gambar']['name'];
         $gambar_tmp = $_FILES['gambar']['tmp_name'];
-        $upload_dir = "../../admin/uploads/";
+        $upload_dir = "../../uploads/";
 
         if (!empty($gambar_lama) && file_exists($upload_dir . $gambar_lama)) {
             unlink($upload_dir . $gambar_lama);
@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,11 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         body {
             background-color: #f8f9fa;
         }
+
         .card {
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
+
         .img-preview {
             display: block;
             margin: 10px auto;
@@ -72,9 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 10px;
             transition: transform 0.3s ease;
         }
+
         .img-preview:hover {
             transform: scale(1.05);
         }
+
         .btn-custom {
             background-color: #007bff;
             color: white;
@@ -83,15 +88,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             width: 100%;
             margin-bottom: 10px;
         }
+
         .btn-custom:hover {
             background-color: #0056b3;
         }
+
         .btn-secondary {
             display: block;
             width: 100%;
         }
     </style>
 </head>
+
 <body>
     <div class="container my-5">
         <div class="row justify-content-center">
@@ -101,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <form action="" method="POST" enctype="multipart/form-data">
                         <div class="mb-3 text-center">
                             <label class="form-label fw-bold">Gambar</label><br>
-                            <img src="../../admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" alt="Sejarah" class="img-preview"><br>
+                            <img src="../../uploads/<?= htmlspecialchars($row['gambar']) ?>" alt="Sejarah" class="img-preview"><br>
                             <input type="file" class="form-control mt-2" id="gambar" name="gambar">
                             <input type="hidden" name="gambar_lama" value="<?= $row['gambar'] ?>">
                         </div>
@@ -119,4 +127,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 </body>
+
 </html>

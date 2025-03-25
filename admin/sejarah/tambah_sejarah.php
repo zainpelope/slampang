@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $gambar = $_FILES['gambar']['name'];
         $gambar_tmp = $_FILES['gambar']['tmp_name'];
 
-        $upload_dir = '../../admin/uploads/';
+        $upload_dir = '../../uploads/';
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0775, true);
         }

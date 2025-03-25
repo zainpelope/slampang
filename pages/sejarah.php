@@ -33,7 +33,7 @@ $result = $conn->query($query);
             <?php while ($row = $result->fetch_assoc()) : ?>
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <img src="admin/uploads/<?= $row['gambar']; ?>" alt="Sejarah" class="img-fluid" width="500" height="500">
+                        <img src="uploads/<?= $row['gambar']; ?>" alt="Sejarah" class="img-fluid" width="500" height="500">
                     </div>
                     <div class="col-md-6">
                         <p><?= $row['keterangan']; ?></p>

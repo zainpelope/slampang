@@ -21,7 +21,7 @@ $sejarah_data = [];
 while ($row = $result->fetch_assoc()) {
     $sejarah_data[] = [
         'id_sejarah' => $row['id_sejarah'],
-        'gambar' => "admin/uploads/" . $row['gambar'],
+        'gambar' => "uploads/" . $row['gambar'],
         'keterangan' => $row['keterangan']
     ];
 }
