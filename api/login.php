@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Cek apakah data masuk dengan benar
+
     error_log("NIK diterima: " . $nik);
     error_log("Tanggal Lahir diterima: " . $tanggal_lahir);
 

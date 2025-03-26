@@ -4,18 +4,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$host = "localhost";
-$user = "root";
-$pass = "root";
-$db   = "desa"; // Ganti dengan nama database Anda
+include('../../koneksi.php');
 
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die(json_encode(["status" => "error", "message" => "Database connection failed"]));
-}
-
-// Pastikan ID dikirim melalui GET atau POST
 $id_user = isset($_GET['id_user']) ? $_GET['id_user'] : null;
 
 if ($id_user) {
