@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lokasi = $_POST['lokasi'];
 
     $gambar = $_FILES['gambar']['name'];
-    $target_dir = "admin/uploads/";
+    $target_dir = "uploads/";
 
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0775, true);

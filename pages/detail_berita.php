@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card shadow-lg rounded border-0">
 
-                        <img src="../admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid rounded-top" alt="News Image">
+                        <img src="../uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid rounded-top" alt="News Image">
 
                         <div class="card-body">
                             <h2 class="display-4 font-weight-bold mb-3"><?= htmlspecialchars($row['judul']) ?></h2>

@@ -24,7 +24,7 @@ while ($row = $result->fetch_assoc()) {
         'judul' => $row['judul'],
         'tanggal' => $row['tanggal'],
         'keterangan' => $row['keterangan'],
-        'gambar' => 'admin/uploads/' . $row['gambar']
+        'gambar' => 'uploads/' . $row['gambar']
     ];
 }
 

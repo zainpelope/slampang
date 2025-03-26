@@ -1,11 +1,11 @@
 <?php
 header("Content-Type: application/json");
-require_once "../koneksi.php"; // Pastikan file koneksi database sudah benar
+require_once "../koneksi.php";
 
 $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Cek apakah NIK dan Tanggal Lahir dikirim
+
     $nik = isset($_POST['nik']) ? trim($_POST['nik']) : '';
     $tanggal_lahir = isset($_POST['tanggal_lahir']) ? trim($_POST['tanggal_lahir']) : '';
 
@@ -18,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Konversi tanggal ke format yang sesuai (YYYY-MM-DD)
+
     $tanggal_lahir = date('Y-m-d', strtotime($tanggal_lahir));
 
-    // Debugging: Cek data yang diterima
+
     error_log("NIK: " . $nik);
     error_log("Tanggal Lahir: " . $tanggal_lahir);
 
-    // Query untuk mencari user berdasarkan NIK dan Tanggal Lahir
+
     $query = "SELECT * FROM pengguna WHERE nik = ? AND tanggal_lahir = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $nik, $tanggal_lahir);

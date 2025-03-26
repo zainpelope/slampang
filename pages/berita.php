@@ -35,7 +35,7 @@ $result = $conn->query($sql);
                         <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
                             <div class="member">
                                 <a href="pages/detail_berita.php?id=<?= $row['id_berita']; ?>">
-                                    <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid" alt="" style="width: 200px; height: 200px; object-fit: cover;">
+                                    <img src="uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid" alt="" style="width: 200px; height: 200px; object-fit: cover;">
                                     <div class="member-content">
                                         <h5 class="mb-1"><?= htmlspecialchars($row['judul']) ?></h5>
                                         <p class="text-muted"><?= htmlspecialchars($row['tanggal']) ?></p>

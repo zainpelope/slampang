@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $image = $_FILES['gambar'];
     $imageName = time() . "_" . basename($image['name']);
-    $targetDirectory = '../uploads/';
+    $targetDirectory = '../../uploads/';
     $targetFile = $targetDirectory . $imageName;
 
 

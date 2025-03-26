@@ -23,17 +23,17 @@ CREATE TABLE IF NOT EXISTS berita (
   FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS kontak (
-  id_kontak INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  subjeck VARCHAR(255) NOT NULL,
-  message TEXT NOT NULL,
-  id_admin INT NOT NULL,
-  status ENUM('baru', 'dibaca') DEFAULT 'baru',
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (id_admin) REFERENCES admin(id_admin) ON DELETE CASCADE
-);
+CREATE TABLE `kontak` (
+  `id_kontak` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `subjeck` VARCHAR(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `status` ENUM('baru','dibaca') DEFAULT 'baru',
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_kontak`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE IF NOT EXISTS struktur (
   id_struktur INT AUTO_INCREMENT PRIMARY KEY,

@@ -31,7 +31,7 @@ if (isset($_GET['hapus'])) {
     $stmt->close();
 
     if ($gambar) {
-        unlink("admin/uploads/" . $gambar);
+        unlink("uploads/" . $gambar);
     }
 
     $sql_delete = "DELETE FROM berita WHERE id_berita = ?";
@@ -73,7 +73,7 @@ $result = $conn->query($sql);
                             <td class="text-center"><?= $no++ ?></td>
                             <td><?= htmlspecialchars($row['judul']) ?></td>
                             <td class="text-center">
-                                <img src="admin/uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-thumbnail" style="max-width: 150px; max-height: 150px; width: 150px; height: 150px; object-fit: cover;">
+                                <img src="uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-thumbnail" style="max-width: 150px; max-height: 150px; width: 150px; height: 150px; object-fit: cover;">
                             </td>
                             <td style="display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;"><?= htmlspecialchars($row['keterangan']) ?></td>
                             <td class="text-center"><?= htmlspecialchars($row['tanggal']) ?></td>

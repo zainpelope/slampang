@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tanggal_selesai = $_POST['tanggal_selesai'];
     $lokasi = $_POST['lokasi'];
 
-    
+
     if (!empty($_FILES['gambar']['name'])) {
         $gambar = $_FILES['gambar']['name'];
-        $target_dir = "admin/uploads/";
+        $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES['gambar']['name']);
 
         if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {

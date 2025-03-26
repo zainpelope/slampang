@@ -143,15 +143,16 @@ INSERT INTO `kegiatan` (`id_kegiatan`, `nama_kegiatan`, `keterangan`, `tanggal_m
 --
 
 CREATE TABLE `kontak` (
-  `id_kontak` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `subjeck` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `id_admin` int(11) NOT NULL,
-  `status` enum('baru','dibaca') DEFAULT 'baru',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+  `id_kontak` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `subjeck` VARCHAR(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `status` ENUM('baru','dibaca') DEFAULT 'baru',
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_kontak`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 

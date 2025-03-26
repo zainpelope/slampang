@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_FILES['gambar']['name']) {
         $image = $_FILES['gambar'];
         $imageName = time() . "_" . basename($image['name']);
-        $targetDirectory = '../uploads/';
+        $targetDirectory = '../../uploads/';
         $targetFile = $targetDirectory . $imageName;
 
         if (move_uploaded_file($image['tmp_name'], $targetFile)) {
-            unlink("../uploads/" . $gambarLama);
+            unlink("../../uploads/" . $gambarLama);
             $gambarLama = $imageName;
         } else {
             echo "Gagal mengunggah gambar!";
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="gambar" class="form-label">Gambar</label>
                 <input type="file" class="form-control" name="gambar" accept="image/*">
                 <div class="mt-2">
-                    <img src="../uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-preview" alt="Image Preview">
+                    <img src="../../uploads/<?= htmlspecialchars($row['gambar']) ?>" class="img-preview" alt="Image Preview">
                 </div>
             </div>
             <div class="form-group d-flex justify-content-between">

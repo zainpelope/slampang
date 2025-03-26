@@ -6,14 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nik = $_POST['nik'];
     $tanggal_lahir = $_POST['tanggal_lahir'];
 
-    // Validasi NIK: Harus angka dan 16 digit
     if (!preg_match("/^[0-9]{16}$/", $nik)) {
         echo "<script>alert('NIK harus terdiri dari 16 angka!');</script>";
     } else {
-        // Format tanggal lahir ke YYYY-MM-DD
+
         $tanggal_lahir = date('Y-m-d', strtotime($tanggal_lahir));
 
-        // Cek NIK dan Tanggal Lahir di database
+
         $query = "SELECT * FROM pengguna WHERE nik='$nik' AND tanggal_lahir='$tanggal_lahir'";
         $result = $conn->query($query);
 

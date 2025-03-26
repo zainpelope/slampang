@@ -44,7 +44,7 @@ $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $no . "</td>";
-                            echo "<td><img src='admin/uploads/" . $row['gambar'] . "' width='100'></td>";
+                            echo "<td><img src='uploads/" . $row['gambar'] . "' width='100'></td>";
                             echo "<td>" . $row['nama_kegiatan'] . "</td>";
 
                             $keterangan = $row['keterangan'];

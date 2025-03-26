@@ -1,34 +1,43 @@
 <?php
 include 'koneksi.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start();
+
+$successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $subjeck = $_POST['subjeck'];
-    $message = $_POST['message'];
-    $id_admin = 1;
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $subjeck = htmlspecialchars($_POST['subjeck']);
+    $message = htmlspecialchars($_POST['message']);
+    $status = 'baru'; // Default status
 
-    $sql = "INSERT INTO kontak (name, email, subjeck, message, id_admin) 
-            VALUES ('$name', '$email', '$subjeck', '$message', '$id_admin')";
+    // Menggunakan prepared statement untuk keamanan
+    $sql = "INSERT INTO kontak (name, email, subjeck, message, status) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $name, $email, $subjeck, $message, $status);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         $successMessage = "Pesan Anda terkirim!";
         echo "<script>
-            setTimeout(function() {
-                window.location.href = 'index.php?page=kontak';
-            }, 2000);
+            document.addEventListener('DOMContentLoaded', function() {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            });
         </script>";
     } else {
         echo "Terjadi kesalahan: " . $conn->error;
     }
+
+    $stmt->close();
     $conn->close();
 }
-
 ?>
 
 <main class="main">
-    <div class="page-title dark-background">
-    </div>
+    <div class="page-title dark-background"></div>
 
     <div class="container my-5" data-aos="fade-up" data-aos-delay="200">
         <section id="contact" class="contact section">
@@ -51,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
                             <i class="bi bi-telephone flex-shrink-0"></i>
                             <div>
-                                <h3>Nomor Telpon</h3>
+                                <h3>Nomor Telepon</h3>
                                 <p>+62 878-4006-0990</p>
                             </div>
                         </div>
@@ -88,9 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <span id="buttonSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                             </button>
                         </form>
-                        <?php if (isset($successMessage)) : ?>
-                            <div class="alert alert-success mt-3"><?php echo $successMessage; ?></div>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -98,18 +104,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </main>
 
+<!-- MODAL UNTUK SUKSES -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">Berhasil!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Pesan Anda telah Terkirim. Terima kasih!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.location.href='index.php?page=kontak'">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
-    const submitButton = document.getElementById('submitButton');
-    const buttonText = document.getElementById('buttonText');
-    const buttonSpinner = document.getElementById('buttonSpinner');
-
-
     document.getElementById('contactForm').addEventListener('submit', function(event) {
         event.preventDefault();
+        const submitButton = document.getElementById('submitButton');
+        const buttonText = document.getElementById('buttonText');
+        const buttonSpinner = document.getElementById('buttonSpinner');
+
         submitButton.disabled = true;
         buttonText.style.display = 'none';
         buttonSpinner.classList.remove('d-none');
-
 
         setTimeout(() => {
             this.submit();
@@ -119,6 +142,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php include('footer.html'); ?>
 
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
 
 <div id="preloader"></div>
