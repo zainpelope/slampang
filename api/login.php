@@ -5,26 +5,18 @@ require_once "../koneksi.php";
 $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $nik = isset($_POST['nik']) ? trim($_POST['nik']) : '';
     $tanggal_lahir = isset($_POST['tanggal_lahir']) ? trim($_POST['tanggal_lahir']) : '';
 
     if (empty($nik) || empty($tanggal_lahir)) {
-        $response = [
-            "status" => "error",
-            "message" => "NIK dan Tanggal Lahir wajib diisi!"
-        ];
+        $response = ["status" => "error", "message" => "NIK dan Tanggal Lahir wajib diisi!"];
         echo json_encode($response);
         exit();
     }
 
-
-    $tanggal_lahir = date('Y-m-d', strtotime($tanggal_lahir));
-
-
-    error_log("NIK: " . $nik);
-    error_log("Tanggal Lahir: " . $tanggal_lahir);
-
+    // Cek apakah data masuk dengan benar
+    error_log("NIK diterima: " . $nik);
+    error_log("Tanggal Lahir diterima: " . $tanggal_lahir);
 
     $query = "SELECT * FROM pengguna WHERE nik = ? AND tanggal_lahir = ?";
     $stmt = $conn->prepare($query);
@@ -45,16 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ]
         ];
     } else {
-        $response = [
-            "status" => "error",
-            "message" => "NIK atau Tanggal Lahir salah!"
-        ];
+        $response = ["status" => "error", "message" => "NIK atau Tanggal Lahir salah!"];
     }
+
     echo json_encode($response);
 } else {
-    $response = [
-        "status" => "error",
-        "message" => "Metode tidak diperbolehkan!"
-    ];
+    $response = ["status" => "error", "message" => "Metode tidak diperbolehkan!"];
     echo json_encode($response);
 }
