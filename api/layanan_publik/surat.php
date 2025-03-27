@@ -1,14 +1,14 @@
 <?php
 header("Content-Type: application/json");
-session_start();
 include '../../koneksi.php';
 
-if (!isset($_SESSION['id_pengguna'])) {
-    echo json_encode(["status" => "error", "message" => "Unauthorized access"]);
+$id_pengguna = isset($_GET['id_pengguna']) ? $_GET['id_pengguna'] : '';
+
+if (empty($id_pengguna)) {
+    echo json_encode(["status" => "error", "message" => "ID Pengguna tidak ditemukan"]);
     exit();
 }
 
-$id_pengguna = $_SESSION['id_pengguna'];
 $cari = isset($_GET['cari']) ? $_GET['cari'] : '';
 $where = $cari ? "AND jenis_surat LIKE '%$cari%'" : "";
 
