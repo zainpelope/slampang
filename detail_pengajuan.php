@@ -121,6 +121,8 @@ if (isset($_GET['id'])) {
                             <th>Status Kepemilikan</th>
                             <td><?= $row['status_kepemilikan']; ?></td>
                         </tr>
+
+
                         <tr>
                             <th>Bukti Kepemilikan</th>
                             <td>

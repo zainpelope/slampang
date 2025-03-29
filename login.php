@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['nama'] = $user['nama'];
             $_SESSION['role'] = 'warga';
 
-            header("Location: index.php?page=home");
+            header("Location: coba/coba.php");
             exit();
         } else {
             echo "<script>alert('NIK atau Tanggal Lahir salah!');</script>";
