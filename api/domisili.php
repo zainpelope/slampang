@@ -1,15 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header("Content-Type: application/json");
 include '../koneksi.php';
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!isset($_SESSION['id_pengguna'])) {
-        echo json_encode(["status" => "error", "message" => "Harap login terlebih dahulu!"]);
-        exit();
-    }
-
-    $id_pengguna = $_SESSION['id_pengguna'];
+    $id_pengguna = $_POST['id_pengguna'] ?? '';
     $nama_lengkap = $_POST['nama_lengkap'] ?? '';
     $tempat_lahir = $_POST['tempat_lahir'] ?? '';
     $tanggal_lahir = $_POST['tanggal_lahir'] ?? '';
@@ -19,12 +16,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pekerjaan = $_POST['pekerjaan'] ?? '';
     $keperluan = $_POST['keperluan'] ?? '';
 
+
+    error_log("Data diterima: " . json_encode($_POST));
+
     if (isset($_FILES["file_pendukung"])) {
         $target_dir = "../uploads/";
         $target_file = $target_dir . basename($_FILES["file_pendukung"]["name"]);
-        move_uploaded_file($_FILES["file_pendukung"]["tmp_name"], $target_file);
+        if (move_uploaded_file($_FILES["file_pendukung"]["tmp_name"], $target_file)) {
+
+            error_log("File berhasil diunggah: " . $target_file);
+        } else {
+            $target_file = "";
+            error_log("Gagal mengunggah file.");
+        }
     } else {
         $target_file = "";
+        error_log("Tidak ada file yang diunggah.");
     }
 
     $query_pengajuan = "INSERT INTO pengajuan_surat (id_pengguna, jenis_surat, status) VALUES ('$id_pengguna', 'Domisili', 'Menunggu Verifikasi')";
@@ -35,10 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_query($conn, $query_detail)) {
             echo json_encode(["status" => "success", "message" => "Pengajuan surat domisili berhasil!"]);
         } else {
-            echo json_encode(["status" => "error", "message" => "Terjadi kesalahan saat menyimpan detail surat."]);
+            $error_message = "Terjadi kesalahan saat menyimpan detail surat: " . mysqli_error($conn);
+            error_log("Error detail_surat: " . $error_message);
+            echo json_encode(["status" => "error", "message" => $error_message]);
         }
     } else {
-        echo json_encode(["status" => "error", "message" => "Terjadi kesalahan saat menyimpan pengajuan surat."]);
+        $error_message = "Terjadi kesalahan saat menyimpan pengajuan surat: " . mysqli_error($conn);
+        error_log("Error pengajuan_surat: " . $error_message);
+        echo json_encode(["status" => "error", "message" => $error_message]);
     }
 } else {
     echo json_encode(["status" => "error", "message" => "Metode request tidak valid."]);
