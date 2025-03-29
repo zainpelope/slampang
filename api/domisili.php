@@ -3,42 +3,60 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 header("Content-Type: application/json");
-include '../koneksi.php';
+include '../koneksi.php'; // Pastikan koneksi database sudah benar
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_pengguna = $_POST['id_pengguna'] ?? '';
-    $nama_lengkap = $_POST['nama_lengkap'] ?? '';
-    $tempat_lahir = $_POST['tempat_lahir'] ?? '';
-    $tanggal_lahir = $_POST['tanggal_lahir'] ?? '';
-    $nik = $_POST['nik'] ?? '';
-    $alamat = $_POST['alamat'] ?? '';
-    $agama = $_POST['agama'] ?? '';
-    $pekerjaan = $_POST['pekerjaan'] ?? '';
-    $keperluan = $_POST['keperluan'] ?? '';
+    // Pastikan koneksi database tersedia
+    if (!$conn) {
+        die(json_encode(["status" => "error", "message" => "Koneksi database gagal!"]));
+    }
 
+    // Mengamankan data dari input
+    $id_pengguna = mysqli_real_escape_string($conn, $_POST['id_pengguna'] ?? '');
+    $nama_lengkap = mysqli_real_escape_string($conn, $_POST['nama'] ?? '');
+    $tempat_lahir = mysqli_real_escape_string($conn, $_POST['tempat_lahir'] ?? '');
+    $tanggal_lahir = mysqli_real_escape_string($conn, $_POST['tanggal_lahir'] ?? '');
+    $nik = mysqli_real_escape_string($conn, $_POST['nik'] ?? '');
+    $alamat = mysqli_real_escape_string($conn, $_POST['alamat'] ?? '');
+    $agama = mysqli_real_escape_string($conn, $_POST['agama'] ?? '');
+    $pekerjaan = mysqli_real_escape_string($conn, $_POST['pekerjaan'] ?? '');
+    $keperluan = mysqli_real_escape_string($conn, $_POST['keperluan'] ?? '');
 
     error_log("Data diterima: " . json_encode($_POST));
 
-    if (isset($_FILES["file_pendukung"])) {
+    // Handle file upload jika ada
+    $target_file = "";
+    if (!empty($_FILES["file_pendukung"]["name"])) {
         $target_dir = "../uploads/";
-        $target_file = $target_dir . basename($_FILES["file_pendukung"]["name"]);
-        if (move_uploaded_file($_FILES["file_pendukung"]["tmp_name"], $target_file)) {
+        $file_name = basename($_FILES["file_pendukung"]["name"]);
+        $target_file = $target_dir . time() . "_" . $file_name; // Rename file agar unik
+        $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+        // Validasi tipe file
+        $allowed_types = ["jpg", "jpeg", "png", "pdf"];
+        if (!in_array($file_type, $allowed_types)) {
+            echo json_encode(["status" => "error", "message" => "Format file tidak diizinkan!"]);
+            exit;
+        }
+
+        if (move_uploaded_file($_FILES["file_pendukung"]["tmp_name"], $target_file)) {
             error_log("File berhasil diunggah: " . $target_file);
         } else {
             $target_file = "";
             error_log("Gagal mengunggah file.");
         }
-    } else {
-        $target_file = "";
-        error_log("Tidak ada file yang diunggah.");
     }
 
+    // Insert ke tabel pengajuan_surat
     $query_pengajuan = "INSERT INTO pengajuan_surat (id_pengguna, jenis_surat, status) VALUES ('$id_pengguna', 'Domisili', 'Menunggu Verifikasi')";
+
     if (mysqli_query($conn, $query_pengajuan)) {
         $id_pengajuan = mysqli_insert_id($conn);
 
-        $query_detail = "INSERT INTO detail_surat (id_pengajuan, nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, agama, pekerjaan, keperluan, file_pendukung) VALUES ('$id_pengajuan', '$nama_lengkap', '$tempat_lahir', '$tanggal_lahir', '$nik', '$alamat', '$agama', '$pekerjaan', '$keperluan', '$target_file')";
+        // Insert ke tabel detail_surat
+        $query_detail = "INSERT INTO detail_surat (id_pengajuan, nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, agama, pekerjaan, keperluan, file_pendukung) 
+                         VALUES ('$id_pengajuan', '$nama_lengkap', '$tempat_lahir', '$tanggal_lahir', '$nik', '$alamat', '$agama', '$pekerjaan', '$keperluan', '$target_file')";
+
         if (mysqli_query($conn, $query_detail)) {
             echo json_encode(["status" => "success", "message" => "Pengajuan surat domisili berhasil!"]);
         } else {
@@ -54,3 +72,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo json_encode(["status" => "error", "message" => "Metode request tidak valid."]);
 }
+
+mysqli_close($conn); // Tutup koneksi database
