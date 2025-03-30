@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    $query_pengajuan = "INSERT INTO pengajuan_surat (id_pengguna, jenis_surat, status) VALUES ('$id_pengguna', 'Domisili', 'Menunggu Verifikasi')";
+    $query_pengajuan = "INSERT INTO pengajuan_surat (id_pengguna, jenis_surat, status) VALUES ('$id_pengguna', 'Tidak Mampu', 'Menunggu Verifikasi')";
 
     if (mysqli_query($conn, $query_pengajuan)) {
         $id_pengajuan = mysqli_insert_id($conn);
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                          VALUES ('$id_pengajuan', '$nama_lengkap', '$tempat_lahir', '$tanggal_lahir', '$nik', '$alamat', '$agama', '$pekerjaan', '$keperluan', '$target_file')";
 
         if (mysqli_query($conn, $query_detail)) {
-            echo json_encode(["status" => "success", "message" => "Pengajuan surat domisili berhasil!"]);
+            echo json_encode(["status" => "success", "message" => "Pengajuan surat Tidak Mampu berhasil!"]);
         } else {
             $error_message = "Terjadi kesalahan saat menyimpan detail surat: " . mysqli_error($conn);
             error_log("Error detail_surat: " . $error_message);
