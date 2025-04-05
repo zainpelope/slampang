@@ -1,3 +1,52 @@
+<?php
+include('koneksi.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST['nama'];
+    $nik = $_POST['nik'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $alamat = $_POST['alamat'];
+    $no_hp = $_POST['no_hp'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if (strlen($nik) != 16 || !ctype_digit($nik)) {
+        echo "<script>alert('NIK harus terdiri dari 16 digit angka.'); window.history.back();</script>";
+        exit();
+    }
+
+
+    $cek_nik = "SELECT nik FROM pengguna WHERE nik = '$nik'";
+    $result_nik = mysqli_query($conn, $cek_nik);
+    if (mysqli_num_rows($result_nik) > 0) {
+        echo "<script>alert('NIK yang Anda masukkan sudah terdaftar.'); window.history.back();</script>";
+        exit();
+    }
+
+
+    if (!empty($email)) {
+        $cek_email = "SELECT email FROM pengguna WHERE email = '$email'";
+        $result_email = mysqli_query($conn, $cek_email);
+        if (mysqli_num_rows($result_email) > 0) {
+            echo "<script>alert('Email yang Anda masukkan sudah terdaftar.'); window.history.back();</script>";
+            exit();
+        }
+    }
+
+    $sql = "INSERT INTO pengguna (nama, nik, tanggal_lahir, alamat, no_hp, email, password) VALUES ('$nama', '$nik', '$tanggal_lahir', '$alamat', '$no_hp', '$email', '$password')";
+
+    if (mysqli_query($conn, $sql)) {
+        header("Location: index_admin.php?page=warga");
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+}
+
+
+$tanggal_sekarang = date('Y-m-d');
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -16,61 +65,33 @@
 
         .container {
             flex-grow: 1;
-            padding: 15px;
-            /* Mengurangi padding */
+            padding: 20px;
         }
 
         .form-container {
             background-color: #fff;
-            padding: 20px;
-            /* Mengurangi padding */
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 15px;
-            /* Mengurangi margin-top */
+            margin-top: 20px;
         }
 
         .form-label {
             font-weight: bold;
-            margin-bottom: 5px;
-            /* Mengurangi margin-bottom label */
-        }
-
-        .mb-3 {
-            margin-bottom: 10px !important;
-            /* Mengurangi margin-bottom input group */
         }
 
         .btn-container {
-            margin-top: 15px;
-            /* Mengurangi margin-top tombol */
+            margin-top: 20px;
             text-align: center;
         }
 
         .btn-full {
             width: 100%;
-            margin-bottom: 8px;
-            /* Mengurangi margin-bottom tombol */
-            padding: 8px 12px;
-            /* Mengecilkan padding tombol */
-            font-size: 0.9rem;
-            /* Mengecilkan ukuran font tombol */
+            margin-bottom: 10px;
         }
 
         .alert-danger {
-            margin-top: 8px;
-            /* Mengurangi margin-top alert */
-            padding: 8px;
-            /* Mengecilkan padding alert */
-            font-size: 0.9rem;
-            /* Mengecilkan ukuran font alert */
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            /* Mengecilkan ukuran font judul */
-            margin-bottom: 1.5rem;
-            /* Mengurangi margin-bottom judul */
+            margin-top: 10px;
         }
     </style>
 </head>
