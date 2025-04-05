@@ -84,6 +84,7 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
         <table class="table">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>Nama Pemohon</th>
                     <th>Jenis Surat</th>
                     <th>Status</th>
@@ -93,8 +94,11 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = $result->fetch_assoc()) { ?>
+                <?php
+                $no = $halaman_awal + 1;
+                while ($row = $result->fetch_assoc()) { ?>
                     <tr>
+                        <td><?= $no++; ?></td>
                         <td><?= $row['nama']; ?></td>
                         <td><?= $row['jenis_surat']; ?></td>
                         <td>
@@ -154,9 +158,10 @@ $total_diambil = $conn->query("SELECT COUNT(*) as total FROM pengajuan_surat WHE
                                 ?>
                                 <a href="#" class="btn btn-primary btn-sm" onclick="cetakSurat('<?= $cetak_link; ?>', <?= $row['id']; ?>)">Cetak</a>
                                 <a href="siap_diambil.php?id=<?= $row['id']; ?>" class="btn btn-primary btn-sm" id="sudahCetakBtn" style="display: none;">Sudah Cetak</a>
-                            <?php } else { ?>
+                            <?php } elseif ($row['status'] != 'Ditolak' && $row['status'] != 'Siap Diambil') { ?>
                                 <button class="btn btn-secondary btn-sm" disabled><?= $row['status']; ?></button>
                             <?php } ?>
+                            <a href="hapus_pengajuan.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus pengajuan ini?')">Hapus</a>
                         </td>
                     </tr>
                 <?php } ?>

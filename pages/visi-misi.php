@@ -31,7 +31,7 @@ while ($row = $misi_result->fetch_assoc()) {
                     <ul>
                         <?php
                         foreach ($misi as $misi_item) {
-                            echo '<li>' . htmlspecialchars($misi_item) . '</li>';
+                            echo '<li>' . rtrim(htmlspecialchars($misi_item), '.') . '</li>';
                         }
                         ?>
                     </ul>
